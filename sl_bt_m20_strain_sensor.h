@@ -12,6 +12,6 @@
 #include "sl_bluetooth.h"
 #include "app_log.h"
 
-sl_status_t sl_bt_torque_send_data(uint8_t* number);
+sl_status_t sl_bt_torque_send_data(uint8_t* number, size_t size);
 
 #endif /* SL_BT_M20_STRAIN_SENSOR_H_ */

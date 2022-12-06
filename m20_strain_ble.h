@@ -23,6 +23,12 @@
 
 typedef struct app_fsm_s app_fsm_t;
 
+// Constants
+#define PGA 128                 // Programmable Gain = 128
+#define VREF 2.5                // External reference of 2.048V
+#define VFSR VREF/PGA
+#define FSR (((long int)1<<23)-1)
+
 /*
  * FSM creation function declaration
  */
@@ -48,7 +54,7 @@ struct app_fsm_s {
   uint8_t data_sent_flag : 1;
   uint8_t sleep_possible_flag : 1;
   uint8_t num_data_retrieved;
-  // Flag to change between FSM branches
+  // Flag to change between modes
   uint8_t change_mode_flag : 1;
 };
 

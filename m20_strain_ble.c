@@ -16,6 +16,13 @@ static void change_mode_callback(uint8_t intNo, void* ctx);
 static void ready_to_retrieve_callback(uint8_t intNo, void* ctx);
 
 /*
+ * Auxiliar function declaration
+ */
+// TODO: Check types!!
+static void convertToMicroVStrain(float* result, int32_t data);
+static void convertToMicroVTemp(float* result, int32_t data);
+
+/*
  * Enumeration that defines the FSM states
  */
 enum states {
@@ -39,21 +46,25 @@ static int check_enter_sleeping(fsm_t* this);
 static int check_wakeup_timer(fsm_t* this);
 static int check_wakeup_completed(fsm_t* this);
 static int check_all_data_retrieved(fsm_t* this);
+static int check_data_sent_continuous(fsm_t* this);
 static int check_data_ready(fsm_t* this);
 static int check_data_retrieved(fsm_t* this);
-static int check_data_sent(fsm_t* this);
+static int check_data_sent_not_continuous(fsm_t* this);
 static int check_sleep_not_possible(fsm_t* this);
 static int check_sleep_possible(fsm_t* this);
+static int check_continuous_mode(fsm_t* this);
 
 /*
  * Transition function declaration
  */
 static void wake_up(fsm_t* this);
 static void ask_for_next_data(fsm_t* this);
+static void ask_again(fsm_t* this);
 static void power_down_interface_send_data(fsm_t* this);
 static void retrieve_data(fsm_t* this);
 static void reset_timer_sleep(fsm_t* this);
 static void try_to_sleep(fsm_t* this);
+static void reset_no_timer(fsm_t* this);
 
 /*
  * Transition table
@@ -65,9 +76,11 @@ static fsm_trans_t app_fsm_tt[] = {
       { ASKING_FOR_DATA, check_all_data_retrieved, SENDING_DATA, power_down_interface_send_data},
       { ASKING_FOR_DATA, check_data_ready, RETRIEVING_DATA, retrieve_data},
       { RETRIEVING_DATA, check_data_retrieved, ASKING_FOR_DATA, ask_for_next_data},
-      { SENDING_DATA, check_data_sent, TO_SLEEP, try_to_sleep},
+      { SENDING_DATA, check_data_sent_continuous, WAKING_UP, ask_again},
+      { SENDING_DATA, check_data_sent_not_continuous, TO_SLEEP, try_to_sleep},
       { TO_SLEEP, check_sleep_not_possible, TO_SLEEP, try_to_sleep},
       { TO_SLEEP, check_sleep_possible, SLEEPING, reset_timer_sleep},
+      { TO_SLEEP, check_continuous_mode, SLEEPING, reset_no_timer},
       { -1, NULL, -1, NULL},
 };
 
@@ -113,21 +126,33 @@ check_data_retrieved(fsm_t* this){
 }
 
 static int
-check_data_sent(fsm_t* this){
+check_data_sent_not_continuous(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
-  return p_this->data_sent_flag;
+  return p_this->data_sent_flag && !p_this->change_mode_flag;
+}
+
+static int
+check_data_sent_continuous(fsm_t* this){
+  app_fsm_t* p_this = this->user_data;
+  return p_this->data_sent_flag && p_this->change_mode_flag;
 }
 
 static int
 check_sleep_not_possible(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
-  return !p_this->sleep_possible_flag;
+  return !p_this->sleep_possible_flag && !p_this->change_mode_flag;
 }
 
 static int
 check_sleep_possible(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
-  return p_this->sleep_possible_flag;
+  return p_this->sleep_possible_flag && !p_this->change_mode_flag;
+}
+
+static int
+check_continuous_mode(fsm_t* this){
+  app_fsm_t* p_this = this->user_data;
+  return p_this->change_mode_flag;
 }
 
 /*
@@ -138,6 +163,7 @@ static void
 wake_up(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->wakeup_timer_flag = 0;
+
   // Stop timer
   sl_status_t sc;
   sc = sl_sleeptimer_stop_timer(p_this->tmr);
@@ -146,6 +172,7 @@ wake_up(fsm_t* this){
   }
   // Bridge on pin high
   // TODO
+
   // Check registers from sensors through SPI
   int nBytes = 10;
   uint8_t registers[10];
@@ -163,6 +190,7 @@ ask_for_next_data(fsm_t* this){
   p_this->wakeup_completed_flag = 0;
   p_this->data_retrieved_flag = 0;
   p_this->data_ready_flag = 0; // for safety
+
   // Select next sensor to be read
   uint8_t nextSensor = p_this->num_data_retrieved;
   // Send info to ADS1220 (mux)
@@ -176,13 +204,21 @@ ask_for_next_data(fsm_t* this){
 }
 
 static void
+ask_again(fsm_t* this){
+  app_fsm_t* p_this = this->user_data;
+  p_this->data_sent_flag = 0;
+  // Sensor should already be powered up
+}
+
+static void
 retrieve_data(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->data_ready_flag = 0;
+
   // Retrieve data through SPI
   int nBytes = sizeof(uint16_t);
   Ecode_t ec;
-  ec = SPIDRV_MReceive(p_this->spi_handle, (void*)p_this->sensor_data[p_this->num_data_retrieved], nBytes, retrieval_callback);
+  ec = SPIDRV_MReceive(p_this->spi_handle, (void*)&p_this->sensor_data[p_this->num_data_retrieved], nBytes, retrieval_callback);
   if(ec == ECODE_EMDRV_SPIDRV_OK){
       app_log_info("SPI data retrieval success");
   }
@@ -193,16 +229,24 @@ power_down_interface_send_data(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->num_data_retrieved = 0;
   sl_status_t sc;
+
   // Power down
   // TODO
+
   // Convert each measurement into physical units
-  // TODO
-  sc = sl_bt_torque_send_data((uint8_t*)p_this->sensor_data);
+  float result[4];
+  convertToMicroVStrain(&result[0], p_this->sensor_data[0]);
+  convertToMicroVStrain(&result[1], p_this->sensor_data[1]);
+  convertToMicroVStrain(&result[2], p_this->sensor_data[2]);
+  convertToMicroVTemp(&result[3], p_this->sensor_data[3]);
+
+  // Send data through BLE
+  sc = sl_bt_torque_send_data((uint8_t*)result, 4*sizeof(float));
   if(sc == SL_STATUS_OK){
-      app_log_info("Attribute send: 0x%d", p_this->sensor_data[0]);
-      app_log_info("Attribute send: 0x%d", p_this->sensor_data[1]);
-      app_log_info("Attribute send: 0x%d", p_this->sensor_data[2]);
-      app_log_info("Attribute send: 0x%d", p_this->sensor_data[3]);
+      app_log_info("Attribute send: 0x%f", result[0]);
+      app_log_info("Attribute send: 0x%f", result[1]);
+      app_log_info("Attribute send: 0x%f", result[2]);
+      app_log_info("Attribute send: 0x%f", result[3]);
       p_this->data_sent_flag = 1;
   }
 }
@@ -211,6 +255,7 @@ static void
 try_to_sleep(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->data_sent_flag = 0;
+
   // sl_status_t sc;
   // Can I go to sleep?
   // sl_power_manager_is_ok_to_sleep()
@@ -221,6 +266,7 @@ static void
 reset_timer_sleep(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->sleep_possible_flag = 0;
+
   // Start timer
   sl_status_t sc;
   uint32_t timeout = 10;
@@ -228,6 +274,12 @@ reset_timer_sleep(fsm_t* this){
   if(sc == SL_STATUS_OK){
         app_log_info("Timer started correctly");
   }
+}
+
+static void
+reset_no_timer(fsm_t* this){
+  app_fsm_t* p_this = this->user_data;
+  p_this->sleep_possible_flag = 0;
 }
 
 /*
@@ -240,6 +292,17 @@ new_app_fsm(app_fsm_t* user_data){
   user_data->sensor_data[1] = 0;
   user_data->sensor_data[2] = 0;
   user_data->sensor_data[3] = 0;
+
+  // Initialize flags
+  user_data->enter_sleeping_flag = 0;
+  user_data->wakeup_timer_flag = 0;
+  user_data->wakeup_completed_flag = 0;
+  user_data->data_ready_flag = 0;
+  user_data->data_retrieved_flag = 0;
+  user_data->data_sent_flag = 0;
+  user_data->sleep_possible_flag = 0;
+  user_data->num_data_retrieved = 0;
+  user_data->change_mode_flag = 0;
 
   // Timer handle initialization
   sl_sleeptimer_timer_handle_t* tmr = malloc(sizeof(sl_sleeptimer_timer_handle_t));
@@ -274,11 +337,24 @@ retrieval_callback(SPIDRV_Handle_t handle, Ecode_t transferStatus, int itemsTran
 static void
 change_mode_callback(uint8_t intNo, void* ctx){
   app_fsm_t* p_this = (app_fsm_t*)ctx;
-  p_this->change_mode_flag = 1;
+  p_this->change_mode_flag = !p_this->change_mode_flag;
 }
 
 static void
 ready_to_retrieve_callback(uint8_t intNo, void* ctx){
   app_fsm_t* p_this = (app_fsm_t*)ctx;
   p_this->data_ready_flag = 1;
+}
+
+/*
+ * Auxiliar functions
+ */
+static void
+convertToMicroVStrain(float* result, int32_t data){
+  *result = (float) ((data*VFSR*1000000)/FSR);
+}
+
+static void
+convertToMicroVTemp(float* result, int32_t data){
+  *result =  (float)(data >> 10)*0.03125;
 }
