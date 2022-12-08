@@ -12,8 +12,8 @@
  */
 static void tmr_callback(sl_sleeptimer_timer_handle_t* handle, void* data);
 static void retrieval_callback(SPIDRV_Handle_t handle, Ecode_t transferStatus, int itemsTransferred);
-static void change_mode_callback(uint8_t intNo, void* ctx);
-static void ready_to_retrieve_callback(uint8_t intNo, void* ctx);
+static void change_mode_callback(uint8_t intNo);
+static void ready_to_retrieve_callback(uint8_t intNo);
 
 /*
  * Auxiliar function declaration
@@ -38,6 +38,9 @@ enum states {
  * Local variables
  */
 static uint8_t sensorsReadCheck;
+static uint8_t* data_ready_flag;
+static uint8_t* change_mode_flag;
+
 
 /*
  * Guard function declaration
@@ -171,16 +174,17 @@ wake_up(fsm_t* this){
       app_log_info("Timer stopped correctly");
   }
   // Bridge on pin high
-  // TODO
+  GPIO_PinOutSet(SL_EMLIB_GPIO_INIT_BRIDGEON_PORT, SL_EMLIB_GPIO_INIT_BRIDGEON_PIN);
 
   // Check registers from sensors through SPI
-  int nBytes = 10;
-  uint8_t registers[10];
-  Ecode_t ec;
-  ec = SPIDRV_MReceiveB(p_this->spi_handle, (void*)registers, nBytes); // Should take around 10us
-  if(ec == ECODE_EMDRV_SPIDRV_OK){
+  int status;
+  ads1220_t* ads1220 = p_this->ads1220;
+  status = ads1220->init(ads1220, p_this->spi_handle);
+  if(status == 0){
       app_log_info("Sensor register read correctly");
       p_this->wakeup_completed_flag = 1;
+  } else{
+      app_log_info("Sensor register read incorrectly");
   }
 }
 
@@ -196,10 +200,14 @@ ask_for_next_data(fsm_t* this){
   // Send info to ADS1220 (mux)
   if(nextSensor < 3){
       // Ask for strain data
-      // TODO
+      // TODO: Should change reg0
+      // TODO: Create public ads1220 method to change this register
+    p_this->ads1220->spidrv_ADS1220_sendCommand(START);
   } else if(nextSensor == 3){
       // Ask for temp data
-      // TODO
+      GPIO_PinOutClear(SL_EMLIB_GPIO_INIT_BRIDGEON_PORT, SL_EMLIB_GPIO_INIT_BRIDGEON_PIN);
+      // TODO: Should change reg0
+      // TODO: Create public ads1220 method to change this register
   }
 }
 
@@ -216,12 +224,9 @@ retrieve_data(fsm_t* this){
   p_this->data_ready_flag = 0;
 
   // Retrieve data through SPI
-  int nBytes = sizeof(uint16_t);
-  Ecode_t ec;
-  ec = SPIDRV_MReceive(p_this->spi_handle, (void*)&p_this->sensor_data[p_this->num_data_retrieved], nBytes, retrieval_callback);
-  if(ec == ECODE_EMDRV_SPIDRV_OK){
-      app_log_info("SPI data retrieval success");
-  }
+  // TODO: think how to activate flag to change state. Now it is a blocking activity run in ADS1220 private method
+  ads1220_t* ads1220 = p_this->ads1220;
+  ads1220->spidrv_ADS1220_readDataSample((void*)&p_this->sensor_data[p_this->num_data_retrieved]);
 }
 
 static void
@@ -304,13 +309,18 @@ new_app_fsm(app_fsm_t* user_data){
   user_data->num_data_retrieved = 0;
   user_data->change_mode_flag = 0;
 
+  // ADS1220 object allocation
+  user_data->ads1220 = malloc(sizeof(ads1220_t));
+
   // Timer handle initialization
   sl_sleeptimer_timer_handle_t* tmr = malloc(sizeof(sl_sleeptimer_timer_handle_t));
   user_data->tmr = tmr;
 
   // GPIO Interruptions
-  GPIOINT_CallbackRegisterExt(SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN, change_mode_callback, user_data);
-  GPIOINT_CallbackRegisterExt(SL_EMLIB_GPIO_INIT_DATAREADY_PIN, ready_to_retrieve_callback, user_data);
+  GPIOINT_CallbackRegister(1, change_mode_callback);
+  change_mode_flag = &(user_data->change_mode_flag);
+  GPIOINT_CallbackRegister(2, ready_to_retrieve_callback);
+  data_ready_flag = &(user_data->data_ready_flag);
 
   return fsm_new(IDLE, app_fsm_tt, user_data);
 }
@@ -335,15 +345,17 @@ retrieval_callback(SPIDRV_Handle_t handle, Ecode_t transferStatus, int itemsTran
 }
 
 static void
-change_mode_callback(uint8_t intNo, void* ctx){
-  app_fsm_t* p_this = (app_fsm_t*)ctx;
-  p_this->change_mode_flag = !p_this->change_mode_flag;
+change_mode_callback(uint8_t intNo){
+  if (intNo == 1){
+      *change_mode_flag = !(*change_mode_flag);
+  }
 }
 
 static void
-ready_to_retrieve_callback(uint8_t intNo, void* ctx){
-  app_fsm_t* p_this = (app_fsm_t*)ctx;
-  p_this->data_ready_flag = 1;
+ready_to_retrieve_callback(uint8_t intNo){
+  if (intNo == 2){
+      *data_ready_flag = 1;
+  }
 }
 
 /*

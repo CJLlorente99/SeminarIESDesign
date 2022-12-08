@@ -26,6 +26,7 @@ sl_device_init_emu_config.h=622680131
 sl_device_init_hfxo_config.h=1133380573
 sl_device_init_lfrco_config.h=838945568
 sl_device_init_lfxo_config.h=-1803899880
+sl_emlib_gpio_init_bridgeON_config.h=-1273848381
 sl_emlib_gpio_init_changeMode_config.h=-50161237
 sl_emlib_gpio_init_dataReady_config.h=951794624
 sl_hfxo_manager_config.h=-306968694

@@ -29,8 +29,8 @@ component:
 - {id: bluetooth_feature_gatt_server}
 - {id: in_place_ota_dfu}
 - {id: bluetooth_feature_sm}
-- {id: bluetooth_feature_legacy_advertiser}
 - {id: mpu}
+- {id: bluetooth_feature_legacy_advertiser}
 - {id: gatt_configuration}
 - {id: bluetooth_stack}
 - {id: gpiointerrupt}
@@ -38,7 +38,7 @@ component:
 - {id: bluetooth_feature_gatt}
 - {id: bluetooth_feature_legacy_scanner}
 - {id: app_log}
-- instance: [changeMode, dataReady]
+- instance: [bridgeON, changeMode, dataReady]
   id: emlib_gpio_simple_init
 - {id: bluetooth_feature_connection}
 - {id: brd4001a}

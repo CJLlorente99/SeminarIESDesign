@@ -14,6 +14,7 @@
     <file name="sl_hfxo_manager_config.h" generated="true" linked="false"/>
     <file name="sl_board_control_config.h" generated="true" linked="false"/>
     <file name="app_log_config.h" generated="true" linked="false"/>
+    <file name="sl_emlib_gpio_init_bridgeON_config.h" generated="true" linked="false"/>
     <file name="sl_emlib_gpio_init_changeMode_config.h" generated="true" linked="false"/>
     <file name="sl_emlib_gpio_init_dataReady_config.h" generated="true" linked="false"/>
     <file name="sl_bluetooth_connection_config.h" generated="true" linked="false"/>

@@ -81,6 +81,7 @@ m20_strain_ble.o: ../m20_strain_ble.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h \
+ ../ads1220.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu_compat.h \
@@ -178,6 +179,7 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:
+../ads1220.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu_compat.h:

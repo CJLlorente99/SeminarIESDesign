@@ -132,11 +132,14 @@
 // [MODEM]$
 
 // $[CUSTOM_PIN_NAME]
-#define 0_PORT                                   gpioPortA
-#define 0_PIN                                    0
+#define 3_PORT                                   gpioPortA
+#define 3_PIN                                    0
 
 #define 1_PORT                                   gpioPortA
 #define 1_PIN                                    1
+
+#define 0_PORT                                   gpioPortA
+#define 0_PIN                                    2
 
 // [CUSTOM_PIN_NAME]$
 

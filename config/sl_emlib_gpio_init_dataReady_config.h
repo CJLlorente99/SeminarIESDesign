@@ -23,7 +23,7 @@
 // <gpioModeWiredAndAlternatePullUp=> Open-drain output with pull-up (alternate)
 // <gpioModeWiredAndAlternatePullUpFilter=> Open-drain output with pull-up and filter (alternate)
 // <i> Default: gpioModePushPull
-#define SL_EMLIB_GPIO_INIT_DATAREADY_MODE        gpioModePushPull
+#define SL_EMLIB_GPIO_INIT_DATAREADY_MODE        gpioModeInput
 
 // <o SL_EMLIB_GPIO_INIT_DATAREADY_DOUT> DOUT <0-1>
 // <i> In push-pull mode: The drive direction for the pin
@@ -42,7 +42,7 @@
 // <gpio> SL_EMLIB_GPIO_INIT_DATAREADY
 // $[GPIO_SL_EMLIB_GPIO_INIT_DATAREADY]
 #define SL_EMLIB_GPIO_INIT_DATAREADY_PORT        gpioPortA
-#define SL_EMLIB_GPIO_INIT_DATAREADY_PIN         1
+#define SL_EMLIB_GPIO_INIT_DATAREADY_PIN         2
 // [GPIO_SL_EMLIB_GPIO_INIT_DATAREADY]$
 
 // <<< sl:end pin_tool >>>

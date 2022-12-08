@@ -12,12 +12,14 @@
 #include <stdlib.h>
 
 #include "sl_bt_m20_strain_sensor.h"
+#include "ads1220.h"
 #include "app_log.h"
 #include "spidrv.h"
 #include "fsm.h"
 #include "sl_sleeptimer.h"
 #include "sl_emlib_gpio_init_changeMode_config.h"
 #include "sl_emlib_gpio_init_dataReady_config.h"
+#include "sl_emlib_gpio_init_bridgeON_config.h"
 #include "gpiointerrupt.h"
 #include "app.h"
 
@@ -45,17 +47,19 @@ struct app_fsm_s {
   uint16_t sensor_data[4];
   // SPI handle
   SPIDRV_Handle_t spi_handle;
+  // ADS1220
+  ads1220_t* ads1220;
   // Flags
   uint8_t enter_sleeping_flag : 1;
   uint8_t wakeup_timer_flag : 1;
   uint8_t wakeup_completed_flag : 1;
-  uint8_t data_ready_flag : 1;
+  uint8_t data_ready_flag;
   uint8_t data_retrieved_flag : 1;
   uint8_t data_sent_flag : 1;
   uint8_t sleep_possible_flag : 1;
   uint8_t num_data_retrieved;
   // Flag to change between modes
-  uint8_t change_mode_flag : 1;
+  uint8_t change_mode_flag;
 };
 
 #endif /* M20_STRAIN_BLE_FSM_H_ */
