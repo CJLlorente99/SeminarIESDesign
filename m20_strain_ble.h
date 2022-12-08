@@ -48,7 +48,7 @@ struct app_fsm_s {
   // SPI handle
   SPIDRV_Handle_t spi_handle;
   // ADS1220
-  ads1220_t* ads1220;
+  ADS1220 ads1220;
   // Flags
   uint8_t wakeup_timer_flag : 1;
   uint8_t wakeup_completed_flag : 1;

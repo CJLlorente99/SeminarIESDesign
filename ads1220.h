@@ -1,24 +1,37 @@
-/*
- * ads1220.h
- *
- *  Created on: 6 dic. 2022
- *      Author: carlo
- */
 
-#ifndef ADS1220_H_
-#define ADS1220_H_
+//////////////////////////////////////////////////////////////////////////////////////////
+//
+//    Arduino library for the ADS1220 24-bit ADC breakout board
+//
+//    Author: Ashwin Whitchurch
+//    Copyright (c) 2018 ProtoCentral
+//
+//    Based on original code from Texas Instruments
+//
+//    This software is licensed under the MIT License(http://opensource.org/licenses/MIT).
+//
+//   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+//   NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+//   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+//   WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+//   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+//   For information on how to use, visit https://github.com/Protocentral/Protocentral_ADS1220/
+//
+/////////////////////////////////////////////////////////////////////////////////////////
 
-#include <stdio.h>
-#include <stdlib.h>
 
 #include "spidrv.h"
 #include "app_log.h"
+#include "gpiointerrupt.h"
+#include "sl_emlib_gpio_init_dataReady_config.h"
+#include "sl_udelay.h"
 
 //ADS1220 SPI commands
 #define SPI_MASTER_DUMMY    0xFF
 #define RESET               0x06   //Send the RESET command (06h) to make sure the ADS1220 is properly reset after power-up
 #define START               0x08    //Send the START/SYNC command (08h) to start converting in continuous conversion mode
-#define POWERDOWN     0x02   //Powerdown ADS1220
+#define POWERDOWN			0x02   //Powerdown ADS1220
 #define WREG  0x40
 #define RREG  0x20
 
@@ -31,14 +44,15 @@
 #define REG_CONFIG1_DR_MASK       0xE0
 #define REG_CONFIG0_PGA_GAIN_MASK 0x0E
 #define REG_CONFIG0_MUX_MASK      0xF0
+#define REG_CONFIG1_TS_MASK		  0x02
 
-#define DR_20SPS    0x00
-#define DR_45SPS    0x20
-#define DR_90SPS    0x40
-#define DR_175SPS   0x60
-#define DR_330SPS   0x80
-#define DR_600SPS   0xA0
-#define DR_1000SPS  0xC0
+#define DR_40SPS    0x00
+#define DR_90SPS    0x20
+#define DR_180SPS   0x40
+#define DR_350SPS   0x60
+#define DR_660SPS   0x80
+#define DR_1200SPS  0xA0
+#define DR_2000SPS  0xC0
 
 #define PGA_GAIN_1   0x00
 #define PGA_GAIN_2   0x02
@@ -67,22 +81,10 @@
 #define MUX_SE_CH2      0xA0
 #define MUX_SE_CH3      0xB0
 
-// Typedefs
-typedef struct ads1220_s ads1220_t;
+#define _BV(bit) (1<<(bit))
+
 typedef struct ads1220_settings_s ads1220_settings_t;
 
-// Public method declaration
-int init(ads1220_t* ads, SPIDRV_HandleData_t* spi_handle);
-
-// Function declaration
-Ecode_t spidrv_ADS1220_writeRegister(uint8_t address, uint8_t value);
-Ecode_t spidrv_ADS1220_sendCommand(uint8_t command);
-Ecode_t spidrv_ADS1220_writeAllRegister(ads1220_settings_t* settings);
-Ecode_t spidrv_ADS1220_readAllRegister(ads1220_settings_t* settings);
-uint8_t spidrv_ADS1220_readRegister(uint8_t address);
-Ecode_t spidrv_ADS1220_readDataSample(int32_t* data);
-
-// Struct definition
 struct ads1220_settings_s{
   uint8_t reg0;
   uint8_t reg1;
@@ -90,19 +92,40 @@ struct ads1220_settings_s{
   uint8_t reg3;
 };
 
-struct ads1220_s{
-  // Public
-  SPIDRV_HandleData_t *spi_handle;
-  int (*init)(ads1220_t* ads, SPIDRV_HandleData_t* spi_handle);
-  // Private
-  uint8_t tx_buffer[5];
-  uint8_t rx_buffer[5];
-  Ecode_t (*spidrv_ADS1220_writeRegister)(uint8_t address, uint8_t value);
-  Ecode_t (*spidrv_ADS1220_sendCommand)(uint8_t command);
-  Ecode_t (*spidrv_ADS1220_writeAllRegister)(ads1220_settings_t* settings);
-  Ecode_t (*spidrv_ADS1220_readAllRegister)(ads1220_settings_t* settings);
-  uint8_t (*spidrv_ADS1220_readRegister)(uint8_t address);
-  Ecode_t (*spidrv_ADS1220_readDataSample)(int32_t* data);
-};
+class ADS1220
+{
+private:
 
-#endif /* ADS1220_H_ */
+  ads1220_settings_t settings;
+  ads1220_settings_t settingsR;
+  SPIDRV_Handle_t handle;
+
+  void writeRegister(uint8_t address, uint8_t value);
+  void writeAllRegister(ads1220_settings_t settings);
+  uint8_t readRegister(uint8_t address);
+  void readAllRegister(ads1220_settings_t* settings);
+
+public:
+
+  ADS1220();
+  void begin();
+  void start_conv(void);
+  void ads1220_reset(void);
+
+  void spi_command(unsigned char data_in);
+  uint8_t * read_data(void);
+
+  void get_config_reg(ads1220_settings_t* settings);
+  void set_config_reg(ads1220_settings_t settings);
+
+  void pga_off(void);
+  void pga_on(void);
+  void set_conv_mode_continuous(void);
+  void set_data_rate(int datarate);
+  void set_pga_gain(int pgagain);
+  void select_mux_channels(int channels_conf);
+  void set_conv_mode_single_shot(void);
+  void temp_sense_on(void);
+  void temp_sense_off(void);
+  int32_t read_data_samples();
+};

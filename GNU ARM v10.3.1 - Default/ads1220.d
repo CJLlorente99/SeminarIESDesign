@@ -1,6 +1,6 @@
-ads1220.o: ../ads1220.c \
+ads1220.o: ../ads1220.cpp \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
- ../ads1220.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies/ads1220.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220sc22hna.h \
@@ -76,7 +76,7 @@ ads1220.o: ../ads1220.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
-../ads1220.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies/ads1220.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220sc22hna.h:

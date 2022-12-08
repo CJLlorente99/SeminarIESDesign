@@ -3,11 +3,11 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
-C_SRCS += \
-C:/Users/carlo/SimplicityStudio/SDKs/gecko_sdk/platform/service/udelay/src/sl_udelay.c 
-
 S_UPPER_SRCS += \
 C:/Users/carlo/SimplicityStudio/SDKs/gecko_sdk/platform/service/udelay/src/sl_udelay_armv6m_gcc.S 
+
+C_SRCS += \
+C:/Users/carlo/SimplicityStudio/SDKs/gecko_sdk/platform/service/udelay/src/sl_udelay.c 
 
 OBJS += \
 ./gecko_sdk_4.1.3/platform/service/udelay/src/sl_udelay.o \
