@@ -50,7 +50,6 @@ struct app_fsm_s {
   // ADS1220
   ads1220_t* ads1220;
   // Flags
-  uint8_t enter_sleeping_flag : 1;
   uint8_t wakeup_timer_flag : 1;
   uint8_t wakeup_completed_flag : 1;
   uint8_t data_ready_flag;
