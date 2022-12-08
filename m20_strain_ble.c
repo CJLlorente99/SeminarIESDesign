@@ -88,12 +88,6 @@ static fsm_trans_t app_fsm_tt[] = {
  * Guard funtions
  */
 static int
-check_enter_sleeping(fsm_t* this){
-  app_fsm_t* p_this = this->user_data;
-  return p_this->enter_sleeping_flag;
-}
-
-static int
 check_wakeup_timer(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   return p_this->wakeup_timer_flag;

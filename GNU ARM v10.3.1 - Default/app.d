@@ -97,6 +97,7 @@ app.o: ../app.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_ldma.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/dmadrv_config.h \
  ../m20_strain_ble.h ../sl_bt_m20_strain_sensor.h ../ads1220.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_bridgeON_config.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
@@ -199,4 +200,5 @@ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/dmadrv_config.h:
 ../m20_strain_ble.h:
 ../sl_bt_m20_strain_sensor.h:
 ../ads1220.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_bridgeON_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h:
