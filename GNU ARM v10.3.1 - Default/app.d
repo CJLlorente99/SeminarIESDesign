@@ -84,8 +84,6 @@ app.o: ../app.c \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/gatt_db.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sli_bt_gattdb_def.h \
  ../app.h ../fsm.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_changeMode_config.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_dataReady_config.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_spidrv_instances.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h \
@@ -96,8 +94,7 @@ app.o: ../app.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\dmadrv\inc\dmadrv.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_ldma.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/dmadrv_config.h \
- ../m20_strain_ble.h ../sl_bt_m20_strain_sensor.h ../ads1220.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h
+ ../m20_strain_ble.h ../sl_bt_m20_strain_sensor.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
@@ -184,8 +181,6 @@ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/gatt_db.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sli_bt_gattdb_def.h:
 ../app.h:
 ../fsm.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_changeMode_config.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_dataReady_config.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_spidrv_instances.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h:
@@ -198,5 +193,3 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_ldma.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/dmadrv_config.h:
 ../m20_strain_ble.h:
 ../sl_bt_m20_strain_sensor.h:
-../ads1220.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h:

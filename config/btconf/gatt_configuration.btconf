@@ -56,7 +56,7 @@
     <!--Strain1-->
     <characteristic const="false" id="strain_1_characteristic" name="Strain1" sourceId="" uuid="15f13721-3fe0-452d-820c-fc4e4c386bdb">
       <informativeText/>
-      <value length="4" type="hex" variable_length="false">00</value>
+      <value length="2" type="hex" variable_length="false">00</value>
       <properties>
         <read authenticated="false" bonded="false" encrypted="false"/>
       </properties>
@@ -65,7 +65,7 @@
     <!--Strain2-->
     <characteristic const="false" id="strain_2_characteristic" name="Strain2" sourceId="" uuid="581944de-3e11-4add-9fa8-58d0390efa92">
       <informativeText/>
-      <value length="4" type="hex" variable_length="false">00</value>
+      <value length="2" type="hex" variable_length="false">00</value>
       <properties>
         <read authenticated="false" bonded="false" encrypted="false"/>
       </properties>
@@ -74,7 +74,7 @@
     <!--Strain3-->
     <characteristic const="false" id="strain_3_characteristic" name="Strain3" sourceId="" uuid="57f1e4bc-ef1b-44ce-b0b9-6adca88595ad">
       <informativeText/>
-      <value length="4" type="hex" variable_length="false">00</value>
+      <value length="2" type="hex" variable_length="false">00</value>
       <properties>
         <read authenticated="false" bonded="false" encrypted="false"/>
       </properties>
@@ -83,7 +83,7 @@
     <!--Temp1-->
     <characteristic const="false" id="temp_1_characteristic" name="Temp1" sourceId="" uuid="0ab27c32-2a05-4af8-9716-67d05c639649">
       <informativeText/>
-      <value length="4" type="hex" variable_length="false">00</value>
+      <value length="2" type="hex" variable_length="false">00</value>
       <properties>
         <read authenticated="false" bonded="false" encrypted="false"/>
       </properties>

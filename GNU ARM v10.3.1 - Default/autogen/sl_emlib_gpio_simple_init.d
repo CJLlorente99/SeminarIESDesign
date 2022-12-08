@@ -2,6 +2,7 @@ autogen/sl_emlib_gpio_simple_init.o: \
  ../autogen/sl_emlib_gpio_simple_init.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\init\gpio_simple\sl_emlib_gpio_simple_init.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_bridgeON_config.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_changeMode_config.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_dataReady_config.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
@@ -64,6 +65,7 @@ autogen/sl_emlib_gpio_simple_init.o: \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\init\gpio_simple\sl_emlib_gpio_simple_init.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_bridgeON_config.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_changeMode_config.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_dataReady_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:

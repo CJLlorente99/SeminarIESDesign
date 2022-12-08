@@ -81,21 +81,7 @@ m20_strain_ble.o: ../m20_strain_ble.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h \
- ../ads1220.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu_compat.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\common\inc\ecode.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/spidrv_config.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\dmadrv\inc\dmadrv.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_ldma.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/dmadrv_config.h \
- ../fsm.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_changeMode_config.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_dataReady_config.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h \
- ../app.h
+ ../fsm.h ../app.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 ../m20_strain_ble.h:
 ../sl_bt_m20_strain_sensor.h:
@@ -179,18 +165,5 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:
-../ads1220.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu_compat.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\common\inc\ecode.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/spidrv_config.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\dmadrv\inc\dmadrv.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_ldma.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/dmadrv_config.h:
 ../fsm.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_changeMode_config.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_dataReady_config.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h:
 ../app.h:
