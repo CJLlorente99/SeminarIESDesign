@@ -16,7 +16,6 @@ static void tmr_callback(sl_sleeptimer_timer_handle_t* handle, void* data);
  * Enumeration that defines the FSM states
  */
 enum states {
-  IDLE,
   SLEEPING,
   WAKING_UP,
   ASKING_FOR_DATA,
@@ -29,7 +28,6 @@ enum states {
 /*
  * Guard function declaration
  */
-static int check_enter_sleeping(fsm_t* this);
 static int check_wakeup_timer(fsm_t* this);
 static int check_wakeup_completed(fsm_t* this);
 static int check_all_data_retrieved(fsm_t* this);
@@ -57,7 +55,6 @@ static void reset_no_timer(fsm_t* this);
  * Transition table
  */
 static fsm_trans_t app_fsm_tt[] = {
-      { IDLE, check_enter_sleeping, SLEEPING, NULL },
       { SLEEPING, check_wakeup_timer, WAKING_UP, wake_up},
       { WAKING_UP, check_wakeup_completed, ASKING_FOR_DATA, ask_for_next_data},
       { ASKING_FOR_DATA, check_all_data_retrieved, SENDING_DATA, power_down_interface_send_data},
@@ -74,12 +71,6 @@ static fsm_trans_t app_fsm_tt[] = {
 /*
  * Guard funtions
  */
-static int
-check_enter_sleeping(fsm_t* this){
-  app_fsm_t* p_this = this->user_data;
-  return p_this->enter_sleeping_flag;
-}
-
 static int
 check_wakeup_timer(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
@@ -248,7 +239,6 @@ new_app_fsm(app_fsm_t* user_data){
   user_data->sensor_data[3] = 0;
 
   // Initialize flags
-  user_data->enter_sleeping_flag = 1;
   user_data->wakeup_timer_flag = 1;
   user_data->wakeup_completed_flag = 0;
   user_data->data_ready_flag = 0;
@@ -262,7 +252,7 @@ new_app_fsm(app_fsm_t* user_data){
   sl_sleeptimer_timer_handle_t* tmr = malloc(sizeof(sl_sleeptimer_timer_handle_t));
   user_data->tmr = tmr;
 
-  return fsm_new(IDLE, app_fsm_tt, user_data);
+  return fsm_new(SLEEPING, app_fsm_tt, user_data);
 }
 
 /*
