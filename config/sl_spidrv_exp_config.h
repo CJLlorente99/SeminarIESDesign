@@ -25,7 +25,7 @@
 
 // <o SL_SPIDRV_EXP_BITRATE> SPI bitrate
 // <i> Default: 1000000
-#define SL_SPIDRV_EXP_BITRATE           1000000
+#define SL_SPIDRV_EXP_BITRATE           8000000
 
 // <o SL_SPIDRV_EXP_FRAME_LENGTH> SPI frame length <4-16>
 // <i> Default: 8
@@ -46,7 +46,7 @@
 // <spidrvClockMode1=> SPI mode 1: CLKPOL=0, CLKPHA=1
 // <spidrvClockMode2=> SPI mode 2: CLKPOL=1, CLKPHA=0
 // <spidrvClockMode3=> SPI mode 3: CLKPOL=1, CLKPHA=1
-#define SL_SPIDRV_EXP_CLOCK_MODE        spidrvClockMode0
+#define SL_SPIDRV_EXP_CLOCK_MODE        spidrvClockMode1
 
 // <o SL_SPIDRV_EXP_CS_CONTROL> SPI master chip select (CS) control scheme.
 // <spidrvCsControlAuto=> CS controlled by the SPI driver

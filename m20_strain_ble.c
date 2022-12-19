@@ -36,7 +36,7 @@ enum states {
 /*
  * Local variables
  */
-static uint8_t sensorsReadCheck;
+static uint8_t sensorsReadCheck = 1;
 static uint8_t* data_ready_flag;
 static uint8_t* change_mode_flag;
 
@@ -108,7 +108,7 @@ check_all_data_retrieved(fsm_t* this){
 static int
 check_data_ready(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
-  return p_this->data_ready_flag;
+  return p_this->data_ready_flag && !(p_this->num_data_retrieved == 4);
 }
 
 static int
@@ -170,7 +170,7 @@ wake_up(fsm_t* this){
   // Check registers from sensors through SPI
   int status;
   ads1220_t* ads1220 = p_this->ads1220;
-  status = ads1220->init(ads1220, p_this->spi_handle);
+  status = ads1220->begin(ads1220);
   if(status == 0){
       app_log_info("Sensor register read correctly");
       p_this->wakeup_completed_flag = 1;
@@ -186,19 +186,22 @@ ask_for_next_data(fsm_t* this){
   p_this->data_retrieved_flag = 0;
   p_this->data_ready_flag = 0; // for safety
 
+  ads1220_t* ads1220 = p_this->ads1220;
+
   // Select next sensor to be read
   uint8_t nextSensor = p_this->num_data_retrieved;
   // Send info to ADS1220 (mux)
   if(nextSensor < 3){
       // Ask for strain data
       // TODO: Should change reg0
-      // TODO: Create public ads1220 method to change this register
-    p_this->ads1220->spidrv_ADS1220_sendCommand(START);
+      GPIO_PinOutClear(SL_EMLIB_GPIO_INIT_BRIDGEON_PORT, SL_EMLIB_GPIO_INIT_BRIDGEON_PIN);
+      ads1220->temp_sense_on(ads1220);
+      ads1220->start_conv(ads1220);
   } else if(nextSensor == 3){
       // Ask for temp data
       GPIO_PinOutClear(SL_EMLIB_GPIO_INIT_BRIDGEON_PORT, SL_EMLIB_GPIO_INIT_BRIDGEON_PIN);
-      // TODO: Should change reg0
-      // TODO: Create public ads1220 method to change this register
+      ads1220->temp_sense_on(ads1220);
+      ads1220->start_conv(ads1220);
   }
 }
 
@@ -213,11 +216,12 @@ static void
 retrieve_data(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->data_ready_flag = 0;
+  p_this->data_retrieved_flag = 0;
 
   // Retrieve data through SPI
   // TODO: think how to activate flag to change state. Now it is a blocking activity run in ADS1220 private method
   ads1220_t* ads1220 = p_this->ads1220;
-  ads1220->spidrv_ADS1220_readDataSample((void*)&p_this->sensor_data[p_this->num_data_retrieved]);
+  p_this->sensor_data[p_this->num_data_retrieved] = ads1220->read_data_samples(ads1220);
 }
 
 static void
@@ -227,13 +231,17 @@ power_down_interface_send_data(fsm_t* this){
   sl_status_t sc;
 
   // Power down
-  // TODO
+  ads1220_t* ads1220 = p_this->ads1220;
+  ads1220->temp_sense_off(ads1220);
 
   // Convert each measurement into physical units
   float result[4];
-  convertToMicroVStrain(&result[0], p_this->sensor_data[0]);
-  convertToMicroVStrain(&result[1], p_this->sensor_data[1]);
-  convertToMicroVStrain(&result[2], p_this->sensor_data[2]);
+//  convertToMicroVStrain(&result[0], p_this->sensor_data[0]);
+//  convertToMicroVStrain(&result[1], p_this->sensor_data[1]);
+//  convertToMicroVStrain(&result[2], p_this->sensor_data[2]);
+  convertToMicroVTemp(&result[0], p_this->sensor_data[0]);
+  convertToMicroVTemp(&result[1], p_this->sensor_data[1]);
+  convertToMicroVTemp(&result[2], p_this->sensor_data[2]);
   convertToMicroVTemp(&result[3], p_this->sensor_data[3]);
 
   // Send data through BLE
@@ -282,12 +290,15 @@ reset_no_timer(fsm_t* this){
  * FSM initialization
  */
 fsm_t*
-new_app_fsm(app_fsm_t* user_data){
+new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle){
   // Initialized data
   user_data->sensor_data[0] = 0;
   user_data->sensor_data[1] = 0;
   user_data->sensor_data[2] = 0;
   user_data->sensor_data[3] = 0;
+
+  // Initilize handler
+  user_data->spi_handle = spi_handle;
 
   // Initialize flags
   user_data->wakeup_timer_flag = 1; // to activate the FSM
@@ -299,8 +310,8 @@ new_app_fsm(app_fsm_t* user_data){
   user_data->num_data_retrieved = 0;
   user_data->change_mode_flag = 0;
 
-  // ADS1220 object allocation
-  user_data->ads1220 = malloc(sizeof(ads1220_t));
+  // ads1220 init
+  user_data->ads1220 = init_ads1220(user_data->spi_handle);
 
   // Timer handle initialization
   sl_sleeptimer_timer_handle_t* tmr = malloc(sizeof(sl_sleeptimer_timer_handle_t));

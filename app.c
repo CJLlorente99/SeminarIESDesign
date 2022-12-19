@@ -62,24 +62,20 @@ SL_WEAK void app_init(void)
   }
 
   // Initialize GPIO (partially done with the wizard, in autogen)
-  GPIO_Unlock();
-  GPIO_IntDisable((uint32_t)1); // 0xFFFFFFFF
+//  GPIO_Unlock();
+//  GPIO_IntDisable((uint32_t)1); // 0xFFFFFFFF
   GPIO_ExtIntConfig(SL_EMLIB_GPIO_INIT_CHANGEMODE_PORT, SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN, 1, RISINGCHANGEMODE, FALLINGCHANGEMODE, true);
-  // TODO: DataReady interruption configuration is different in spidrv_app_init (is set as falling)
   GPIO_ExtIntConfig(SL_EMLIB_GPIO_INIT_DATAREADY_PORT, SL_EMLIB_GPIO_INIT_DATAREADY_PIN, 2, RISINGMEASUREREADY, FALLINGMEASUREREADY, true);
 
-  GPIO_IntClear((uint32_t)1);
+//  GPIO_IntClear((uint32_t)1);
   // TODO: IntEnable should be the pins or the interrupt numbers?
-  GPIO_IntEnable((uint32_t)SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN||(uint32_t)SL_EMLIB_GPIO_INIT_DATAREADY_PIN);
+//  GPIO_IntEnable((uint32_t)SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN||(uint32_t)SL_EMLIB_GPIO_INIT_DATAREADY_PIN);
   // GPIO_EM4EnablePinWakeup()
-  GPIO_Lock();
+//  GPIO_Lock();
 
   // Initialize and create FSM
   app_fsm_t* user_data = malloc(sizeof(app_fsm_t));
-  app_fsm = new_app_fsm(user_data);
-
-  // Initialize SPI (partially done with the wizard, in autogen)
-  user_data->spi_handle = sl_spidrv_exp_handle;
+  app_fsm = new_app_fsm(user_data, sl_spidrv_exp_handle);
 }
 
 /**************************************************************************//**

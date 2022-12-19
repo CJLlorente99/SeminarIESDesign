@@ -37,8 +37,8 @@
 
 #define RISINGCHANGEMODE true
 #define FALLINGCHANGEMODE false
-#define RISINGMEASUREREADY true
-#define FALLINGMEASUREREADY false
+#define RISINGMEASUREREADY false
+#define FALLINGMEASUREREADY true
 
 /**************************************************************************//**
  * Application Init.

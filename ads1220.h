@@ -84,6 +84,29 @@
 #define _BV(bit) (1<<(bit))
 
 typedef struct ads1220_settings_s ads1220_settings_t;
+typedef struct ads1220_s ads1220_t;
+
+ads1220_t* init_ads1220(SPIDRV_Handle_t handle);
+void writeRegister(ads1220_t* ads1220, uint8_t address, uint8_t value);
+void writeAllRegister(ads1220_t* ads1220, ads1220_settings_t settings);
+uint8_t readRegister(ads1220_t* ads1220, uint8_t address);
+void readAllRegister(ads1220_t* ads1220, ads1220_settings_t* settings);
+int begin(ads1220_t* ads1220);
+void spi_command(ads1220_t* ads1220,uint8_t data_in);
+void ads1220_reset(ads1220_t* ads1220);
+void start_conv(ads1220_t* ads1220);
+void pga_on(ads1220_t* ads1220);
+void pga_off(ads1220_t* ads1220);
+void set_conv_mode_continuous(ads1220_t* ads1220);
+void set_conv_mode_single_shot(ads1220_t* ads1220);
+void set_data_rate(ads1220_t* ads1220, int datarate);
+void select_mux_channels(ads1220_t* ads1220, int channels_conf);
+void set_pga_gain(ads1220_t* ads1220, int pgagain);
+void temp_sense_on(ads1220_t* ads1220);
+void temp_sense_off(ads1220_t* ads1220);
+void get_config_reg(ads1220_t* ads1220, ads1220_settings_t* settings);
+void set_config_reg(ads1220_t* ads1220, ads1220_settings_t settings);
+int32_t read_data_samples(ads1220_t* ads1220);
 
 struct ads1220_settings_s{
   uint8_t reg0;
@@ -92,40 +115,35 @@ struct ads1220_settings_s{
   uint8_t reg3;
 };
 
-class ADS1220
-{
-private:
-
+struct ads1220_s{
+  // Private
   ads1220_settings_t settings;
   ads1220_settings_t settingsR;
   SPIDRV_Handle_t handle;
 
-  void writeRegister(uint8_t address, uint8_t value);
-  void writeAllRegister(ads1220_settings_t settings);
-  uint8_t readRegister(uint8_t address);
-  void readAllRegister(ads1220_settings_t* settings);
+  void (*writeRegister)(ads1220_t* ads1220, uint8_t address, uint8_t value);
+  void (*writeAllRegister)(ads1220_t* ads1220, ads1220_settings_t settings);
+  uint8_t (*readRegister)(ads1220_t* ads1220, uint8_t address);
+  void (*readAllRegister)(ads1220_t* ads1220, ads1220_settings_t* settings);
 
-public:
+  // Public
+  int (*begin)(ads1220_t* ads1220);
+  void (*start_conv)(ads1220_t* ads1220);
+  void (*ads1220_reset)(ads1220_t* ads1220);
 
-  ADS1220();
-  void begin();
-  void start_conv(void);
-  void ads1220_reset(void);
+  void (*spi_command)(ads1220_t* ads1220, unsigned char data_in);
 
-  void spi_command(unsigned char data_in);
-  uint8_t * read_data(void);
+  void (*get_config_reg)(ads1220_t* ads1220, ads1220_settings_t* settings);
+  void (*set_config_reg)(ads1220_t* ads1220, ads1220_settings_t settings);
 
-  void get_config_reg(ads1220_settings_t* settings);
-  void set_config_reg(ads1220_settings_t settings);
-
-  void pga_off(void);
-  void pga_on(void);
-  void set_conv_mode_continuous(void);
-  void set_data_rate(int datarate);
-  void set_pga_gain(int pgagain);
-  void select_mux_channels(int channels_conf);
-  void set_conv_mode_single_shot(void);
-  void temp_sense_on(void);
-  void temp_sense_off(void);
-  int32_t read_data_samples();
+  void (*pga_off)(ads1220_t* ads1220);
+  void (*pga_on)(ads1220_t* ads1220);
+  void (*set_conv_mode_continuous)(ads1220_t* ads1220);
+  void (*set_data_rate)(ads1220_t* ads1220, int datarate);
+  void (*set_pga_gain)(ads1220_t* ads1220, int pgagain);
+  void (*select_mux_channels)(ads1220_t* ads1220, int channels_conf);
+  void (*set_conv_mode_single_shot)(ads1220_t* ads1220);
+  void (*temp_sense_on)(ads1220_t* ads1220);
+  void (*temp_sense_off)(ads1220_t* ads1220);
+  int32_t (*read_data_samples)(ads1220_t* ads1220);
 };

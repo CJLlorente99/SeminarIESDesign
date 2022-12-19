@@ -34,7 +34,7 @@ typedef struct app_fsm_s app_fsm_t;
 /*
  * FSM creation function declaration
  */
-fsm_t* new_app_fsm(app_fsm_t* user_data);
+fsm_t* new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle);
 
 /*
  * FSM user data structure definition
@@ -48,14 +48,14 @@ struct app_fsm_s {
   // SPI handle
   SPIDRV_Handle_t spi_handle;
   // ADS1220
-  ADS1220 ads1220;
+  ads1220_t* ads1220;
   // Flags
-  uint8_t wakeup_timer_flag : 1;
-  uint8_t wakeup_completed_flag : 1;
+  uint8_t wakeup_timer_flag;
+  uint8_t wakeup_completed_flag;
   uint8_t data_ready_flag;
-  uint8_t data_retrieved_flag : 1;
-  uint8_t data_sent_flag : 1;
-  uint8_t sleep_possible_flag : 1;
+  uint8_t data_retrieved_flag;
+  uint8_t data_sent_flag;
+  uint8_t sleep_possible_flag;
   uint8_t num_data_retrieved;
   // Flag to change between modes
   uint8_t change_mode_flag;
