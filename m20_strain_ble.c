@@ -209,6 +209,7 @@ static void
 ask_again(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->data_sent_flag = 0;
+  p_this->wakeup_completed_flag = 1;
   // Sensor should already be powered up
 }
 
@@ -219,7 +220,7 @@ retrieve_data(fsm_t* this){
   p_this->data_retrieved_flag = 0;
 
   // Retrieve data through SPI
-  // TODO: think how to activate flag to change state. Now it is a blocking activity run in ADS1220 private method
+  // TODO: think how to activate flag to change state. Now it is a blocking activity run in ADS1220 private method (so guard function returns 1 always)
   ads1220_t* ads1220 = p_this->ads1220;
   p_this->sensor_data[p_this->num_data_retrieved] = ads1220->read_data_samples(ads1220);
 }
