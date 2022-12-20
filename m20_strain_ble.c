@@ -155,6 +155,7 @@ check_continuous_mode(fsm_t* this){
 
 static void
 wake_up(fsm_t* this){
+  app_log_info("wake_up\n");
   app_fsm_t* p_this = this->user_data;
   p_this->wakeup_timer_flag = 0;
 
@@ -162,13 +163,14 @@ wake_up(fsm_t* this){
   sl_status_t sc;
   sc = sl_sleeptimer_stop_timer(p_this->tmr);
   if(sc == SL_STATUS_OK){
-      app_log_info("Timer stopped correctly");
+      app_log_info("Timer stopped correctly\n");
   }
   p_this->wakeup_completed_flag = 1;
 }
 
 static void
 ask_for_next_data(fsm_t* this){
+  app_log_info("ask_for_next_data\n");
   app_fsm_t* p_this = this->user_data;
   p_this->wakeup_completed_flag = 0;
   p_this->data_retrieved_flag = 0;
@@ -187,6 +189,7 @@ ask_for_next_data(fsm_t* this){
 
 static void
 ask_again(fsm_t* this){
+  app_log_info("ask_again\n");
   app_fsm_t* p_this = this->user_data;
   p_this->data_sent_flag = 0;
   p_this->wakeup_completed_flag = 1;
@@ -195,6 +198,7 @@ ask_again(fsm_t* this){
 
 static void
 retrieve_data(fsm_t* this){
+  app_log_info("retrieve_data\n");
   app_fsm_t* p_this = this->user_data;
   p_this->data_ready_flag = 0;
   p_this->data_retrieved_flag = 0;
@@ -204,6 +208,7 @@ retrieve_data(fsm_t* this){
 
 static void
 power_down_interface_send_data(fsm_t* this){
+  app_log_info("power_down_interface_send_data\n");
   app_fsm_t* p_this = this->user_data;
   p_this->num_data_retrieved = 0;
   sl_status_t sc;
@@ -218,16 +223,17 @@ power_down_interface_send_data(fsm_t* this){
   // Send data through BLE
   sc = sl_bt_torque_send_data((uint8_t*)result, 4*sizeof(float));
   if(sc == SL_STATUS_OK){
-      app_log_info("Attribute send: 0x%f", result[0]);
-      app_log_info("Attribute send: 0x%f", result[1]);
-      app_log_info("Attribute send: 0x%f", result[2]);
-      app_log_info("Attribute send: 0x%f", result[3]);
+      app_log_info("Attribute sent: 0x%f\n", result[0]);
+      app_log_info("Attribute sent: 0x%f\n", result[1]);
+      app_log_info("Attribute sent: 0x%f\n", result[2]);
+      app_log_info("Attribute sent: 0x%f\n", result[3]);
       p_this->data_sent_flag = 1;
   }
 }
 
 static void
 try_to_sleep(fsm_t* this){
+  app_log_info("try_to_sleep\n");
   app_fsm_t* p_this = this->user_data;
   p_this->data_sent_flag = 0;
 
@@ -239,6 +245,7 @@ try_to_sleep(fsm_t* this){
 
 static void
 reset_timer_sleep(fsm_t* this){
+  app_log_info("reset_timer_sleep\n");
   app_fsm_t* p_this = this->user_data;
   p_this->sleep_possible_flag = 0;
 
@@ -247,12 +254,13 @@ reset_timer_sleep(fsm_t* this){
   uint32_t timeout = 1000;
   sc = sl_sleeptimer_start_timer(p_this->tmr, timeout, tmr_callback, p_this, 0, SL_SLEEPTIMER_PERIPHERAL_BURTC);
   if(sc == SL_STATUS_OK){
-        app_log_info("Timer started correctly");
+        app_log_info("Timer started correctly\n");
   }
 }
 
 static void
 reset_no_timer(fsm_t* this){
+  app_log_info("reset_no_timer\n");
   app_fsm_t* p_this = this->user_data;
   p_this->sleep_possible_flag = 0;
 }

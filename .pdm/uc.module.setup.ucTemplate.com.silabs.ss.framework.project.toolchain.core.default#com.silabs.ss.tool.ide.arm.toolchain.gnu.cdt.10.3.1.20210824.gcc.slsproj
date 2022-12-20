@@ -14,6 +14,8 @@
     <file name="sl_iostream_handles.h" builtin="true" generated="true"/>
     <file name="sl_iostream_handles.c" builtin="true" generated="true"/>
     <file name="sl_iostream_init_instances.h" builtin="true" generated="true"/>
+    <file name="sl_iostream_init_eusart_instances.c" builtin="true" generated="true"/>
+    <file name="sl_iostream_init_eusart_instances.h" builtin="true" generated="true"/>
     <file name="mbedtls_config_autogen.h" builtin="true" generated="true"/>
     <file name="sl_mbedtls_config_transform_autogen.h" builtin="true" generated="true"/>
     <file name="sl_power_manager_handler.c" builtin="true" generated="true"/>

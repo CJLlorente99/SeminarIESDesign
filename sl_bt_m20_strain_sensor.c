@@ -16,44 +16,44 @@ sl_status_t sl_bt_torque_send_data(uint8_t* number, size_t size){
   reverse(number, size/4, rebmun);
   sc = sl_bt_gatt_server_write_attribute_value(gattdb_strain_1_characteristic, 0, size/4, rebmun);
   if (sc == SL_STATUS_OK) {
-      app_log_info("Attribute written: 0x%hu", (uint16_t)*number);
+      app_log_info("Attribute written: 0x%X%X%X%X", number[0], number[1], number[2], number[3]);
     }
   sc = sl_bt_gatt_server_notify_all(gattdb_strain_1_characteristic, size/4, rebmun);
   if (sc == SL_STATUS_OK) {
-      app_log_append(" Notification sent: 0x%hu\n", (uint16_t)*number);
+      app_log_append(" Notification sent: 0x%X%X%X%X\n", number[0], number[1], number[2], number[3]);
     }
 
   number += size/4;
   reverse(number, size/4, rebmun);
   sc = sl_bt_gatt_server_write_attribute_value(gattdb_strain_2_characteristic, 0, size/4, rebmun);
   if (sc == SL_STATUS_OK) {
-      app_log_info("Attribute written: 0x%hu", (uint16_t)*number);
+      app_log_info("Attribute written: 0x%X%X%X%X", number[0], number[1], number[2], number[3]);
     }
   sc = sl_bt_gatt_server_notify_all(gattdb_strain_2_characteristic, size/4, rebmun);
   if (sc == SL_STATUS_OK) {
-      app_log_append(" Notification sent: 0x%hu\n", (uint16_t)*number);
+      app_log_append(" Notification sent: 0x%X%X%X%X\n", number[0], number[1], number[2], number[3]);
     }
 
   number += size/4;
   reverse(number, size/4, rebmun);
   sc = sl_bt_gatt_server_write_attribute_value(gattdb_strain_3_characteristic, 0, size/4, rebmun);
   if (sc == SL_STATUS_OK) {
-      app_log_info("Attribute written: 0x%hu", (uint16_t)*number);
+      app_log_info("Attribute written: 0x%X%X%X%X", number[0], number[1], number[2], number[3]);
     }
   sc = sl_bt_gatt_server_notify_all(gattdb_strain_3_characteristic, size/4, rebmun);
   if (sc == SL_STATUS_OK) {
-      app_log_append(" Notification sent: 0x%hu\n", (uint16_t)*number);
+      app_log_append(" Notification sent: 0x%X%X%X%X\n", number[0], number[1], number[2], number[3]);
     }
 
   number += size/4;
   reverse(number, size/4, rebmun);
   sc = sl_bt_gatt_server_write_attribute_value(gattdb_temp_1_characteristic, 0, size/4, rebmun);
   if (sc == SL_STATUS_OK) {
-      app_log_info("Attribute written: 0x%hu", (uint16_t)*number);
+      app_log_info("Attribute written: 0x%X%X%X%X", number[0], number[1], number[2], number[3]);
     }
   sc = sl_bt_gatt_server_notify_all(gattdb_temp_1_characteristic, size/4, rebmun);
   if (sc == SL_STATUS_OK) {
-      app_log_append(" Notification sent: 0x%hu\n", (uint16_t)*number);
+      app_log_append(" Notification sent: 0x%X%X%X%X\n", number[0], number[1], number[2], number[3]);
     }
 
   return sc;

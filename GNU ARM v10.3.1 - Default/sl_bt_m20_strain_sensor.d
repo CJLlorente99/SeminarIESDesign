@@ -80,6 +80,8 @@ sl_bt_m20_strain_sensor.o: ../sl_bt_m20_strain_sensor.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_debug.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_init_eusart_instances.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 ../sl_bt_m20_strain_sensor.h:
@@ -162,4 +164,6 @@ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_handles
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_debug.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_init_eusart_instances.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:

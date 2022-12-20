@@ -21,6 +21,7 @@
 #include "sl_emlib_gpio_simple_init.h"
 #include "gpiointerrupt.h"
 #include "sl_iostream_debug.h"
+#include "sl_iostream_init_eusart_instances.h"
 #include "sl_iostream_stdlib_config.h"
 #include "sl_mbedtls.h"
 #include "sl_mpu.h"
@@ -104,5 +105,6 @@ void sl_internal_app_process_action(void)
 void sl_iostream_init_instances(void)
 {
   sl_iostream_debug_init();
+  sl_iostream_eusart_init_instances();
 }
 

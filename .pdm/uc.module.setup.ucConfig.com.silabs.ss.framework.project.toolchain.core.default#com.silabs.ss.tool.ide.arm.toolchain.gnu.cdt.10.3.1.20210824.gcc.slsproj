@@ -12,6 +12,7 @@
     <file name="sl_device_init_lfrco_config.h" generated="true" linked="false"/>
     <file name="sl_bluetooth_config.h" generated="true" linked="false"/>
     <file name="sl_hfxo_manager_config.h" generated="true" linked="false"/>
+    <file name="sl_iostream_eusart_vcom_config.h" generated="true" linked="false"/>
     <file name="sl_board_control_config.h" generated="true" linked="false"/>
     <file name="app_log_config.h" generated="true" linked="false"/>
     <file name="sl_emlib_gpio_init_bridgeON_config.h" generated="true" linked="false"/>
@@ -37,5 +38,6 @@
     <file name="emlib_core_debug_config.h" generated="true" linked="false"/>
     <file name="mbedtls_config.h" generated="true" linked="false"/>
   </folder>
-  <includePath uri="studio:/project/config/"/>
+  <includePath uri="studio:/project/config"/>
+  <includePath uri="studio:/project/config/btconf"/>
 </project>
