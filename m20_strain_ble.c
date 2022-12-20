@@ -164,19 +164,7 @@ wake_up(fsm_t* this){
   if(sc == SL_STATUS_OK){
       app_log_info("Timer stopped correctly");
   }
-  // Bridge on pin high
-  GPIO_PinOutSet(SL_EMLIB_GPIO_INIT_BRIDGEON_PORT, SL_EMLIB_GPIO_INIT_BRIDGEON_PIN);
-
-  // Check registers from sensors through SPI
-  int status;
-  ads1220_t* ads1220 = p_this->ads1220;
-  status = ads1220->begin(ads1220);
-  if(status == 0){
-      app_log_info("Sensor register read correctly");
-      p_this->wakeup_completed_flag = 1;
-  } else{
-      app_log_info("Sensor register read incorrectly");
-  }
+  p_this->wakeup_completed_flag = 1;
 }
 
 static void
@@ -184,9 +172,7 @@ ask_for_next_data(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->wakeup_completed_flag = 0;
   p_this->data_retrieved_flag = 0;
-  p_this->data_ready_flag = 0; // for safety
-
-  ads1220_t* ads1220 = p_this->ads1220;
+  p_this->data_ready_flag = 1; // for safety
 
   // Select next sensor to be read
   uint8_t nextSensor = p_this->num_data_retrieved;
@@ -194,14 +180,8 @@ ask_for_next_data(fsm_t* this){
   if(nextSensor < 3){
       // Ask for strain data
       // TODO: Should change reg0
-      GPIO_PinOutClear(SL_EMLIB_GPIO_INIT_BRIDGEON_PORT, SL_EMLIB_GPIO_INIT_BRIDGEON_PIN);
-      ads1220->temp_sense_on(ads1220);
-      ads1220->start_conv(ads1220);
   } else if(nextSensor == 3){
       // Ask for temp data
-      GPIO_PinOutClear(SL_EMLIB_GPIO_INIT_BRIDGEON_PORT, SL_EMLIB_GPIO_INIT_BRIDGEON_PIN);
-      ads1220->temp_sense_on(ads1220);
-      ads1220->start_conv(ads1220);
   }
 }
 
@@ -209,6 +189,7 @@ static void
 ask_again(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->data_sent_flag = 0;
+  p_this->wakeup_completed_flag = 1;
   // Sensor should already be powered up
 }
 
@@ -218,10 +199,7 @@ retrieve_data(fsm_t* this){
   p_this->data_ready_flag = 0;
   p_this->data_retrieved_flag = 0;
 
-  // Retrieve data through SPI
-  // TODO: think how to activate flag to change state. Now it is a blocking activity run in ADS1220 private method
-  ads1220_t* ads1220 = p_this->ads1220;
-  p_this->sensor_data[p_this->num_data_retrieved] = ads1220->read_data_samples(ads1220);
+  p_this->sensor_data[p_this->num_data_retrieved] += 1;
 }
 
 static void
@@ -230,19 +208,12 @@ power_down_interface_send_data(fsm_t* this){
   p_this->num_data_retrieved = 0;
   sl_status_t sc;
 
-  // Power down
-  ads1220_t* ads1220 = p_this->ads1220;
-  ads1220->temp_sense_off(ads1220);
-
   // Convert each measurement into physical units
   float result[4];
-//  convertToMicroVStrain(&result[0], p_this->sensor_data[0]);
-//  convertToMicroVStrain(&result[1], p_this->sensor_data[1]);
-//  convertToMicroVStrain(&result[2], p_this->sensor_data[2]);
-  convertToMicroVTemp(&result[0], p_this->sensor_data[0]);
-  convertToMicroVTemp(&result[1], p_this->sensor_data[1]);
-  convertToMicroVTemp(&result[2], p_this->sensor_data[2]);
-  convertToMicroVTemp(&result[3], p_this->sensor_data[3]);
+  result[0] = (float)p_this->sensor_data[0];
+  result[1] = (float)p_this->sensor_data[1];
+  result[2] = (float)p_this->sensor_data[2];
+  result[3] = (float)p_this->sensor_data[3];
 
   // Send data through BLE
   sc = sl_bt_torque_send_data((uint8_t*)result, 4*sizeof(float));
@@ -273,7 +244,7 @@ reset_timer_sleep(fsm_t* this){
 
   // Start timer
   sl_status_t sc;
-  uint32_t timeout = 10;
+  uint32_t timeout = 1000;
   sc = sl_sleeptimer_start_timer(p_this->tmr, timeout, tmr_callback, p_this, 0, SL_SLEEPTIMER_PERIPHERAL_BURTC);
   if(sc == SL_STATUS_OK){
         app_log_info("Timer started correctly");
@@ -297,9 +268,6 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle){
   user_data->sensor_data[2] = 0;
   user_data->sensor_data[3] = 0;
 
-  // Initilize handler
-  user_data->spi_handle = spi_handle;
-
   // Initialize flags
   user_data->wakeup_timer_flag = 1; // to activate the FSM
   user_data->wakeup_completed_flag = 0;
@@ -310,9 +278,6 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle){
   user_data->num_data_retrieved = 0;
   user_data->change_mode_flag = 0;
 
-  // ads1220 init
-  user_data->ads1220 = init_ads1220(user_data->spi_handle);
-
   // Timer handle initialization
   sl_sleeptimer_timer_handle_t* tmr = malloc(sizeof(sl_sleeptimer_timer_handle_t));
   user_data->tmr = tmr;
@@ -320,8 +285,6 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle){
   // GPIO Interruptions
   GPIOINT_CallbackRegister(1, change_mode_callback);
   change_mode_flag = &(user_data->change_mode_flag);
-  GPIOINT_CallbackRegister(2, ready_to_retrieve_callback);
-  data_ready_flag = &(user_data->data_ready_flag);
 
   return fsm_new(SLEEPING, app_fsm_tt, user_data);
 }
