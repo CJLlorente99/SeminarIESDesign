@@ -6,6 +6,8 @@ const sl_iostream_instance_info_t *sl_iostream_instances_info[] = {
 
     &sl_iostream_instance_debug_info,
   
+    &sl_iostream_instance_vcom_info,
+  
 };
 
 const uint32_t sl_iostream_instances_count = sizeof(sl_iostream_instances_info) / sizeof(sl_iostream_instances_info[0]);

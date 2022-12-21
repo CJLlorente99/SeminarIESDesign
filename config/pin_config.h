@@ -135,14 +135,11 @@
 #define bridgeON_PORT                            gpioPortA
 #define bridgeON_PIN                             0
 
-#define 1_PORT                                   gpioPortA
-#define 1_PIN                                    1
-
-#define DataReady_PORT                           gpioPortA
-#define DataReady_PIN                            2
-
 #define ChangeMode_PORT                          gpioPortB
 #define ChangeMode_PIN                           0
+
+#define DataReady_PORT                           gpioPortB
+#define DataReady_PIN                            2
 
 // [CUSTOM_PIN_NAME]$
 

@@ -92,13 +92,15 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_debug.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h \
- ../autogen/sl_bluetooth.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_init_eusart_instances.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_power_manager_config.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_slist.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_emu.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h \
+ ../autogen/sl_bluetooth.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_bluetooth_config.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_bluetooth_connection_config.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_bluetooth_advertiser_config.h \
@@ -110,6 +112,7 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\driver\debug\inc\sl_debug_swo.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\init\gpio_simple\sl_emlib_gpio_simple_init.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h \
+ ../autogen/sl_iostream_init_eusart_instances.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_stdlib_config.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\sl_mbedtls.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\mpu\inc\sl_mpu.h \
@@ -270,13 +273,15 @@ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_handles
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_debug.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:
-../autogen/sl_bluetooth.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_init_eusart_instances.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_power_manager_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_slist.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_emu.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:
+../autogen/sl_bluetooth.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_bluetooth_config.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_bluetooth_connection_config.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_bluetooth_advertiser_config.h:
@@ -288,6 +293,7 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_api_
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\driver\debug\inc\sl_debug_swo.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\init\gpio_simple\sl_emlib_gpio_simple_init.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h:
+../autogen/sl_iostream_init_eusart_instances.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_stdlib_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\sl_mbedtls.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\mpu\inc\sl_mpu.h:

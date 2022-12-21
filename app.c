@@ -75,7 +75,7 @@ SL_WEAK void app_init(void)
 
   CMU_ClockSelectSet(cmuClock_USART0, cmuSelect_HFXO);
   CMU_ClockEnable(cmuClock_USART0, true);
-  CMU_OscillatorEnable(cmuOsc_HFXO);
+  CMU_OscillatorEnable(cmuOsc_HFXO, true, true);
   // Initialize and create FSM
   app_fsm_t* user_data = malloc(sizeof(app_fsm_t));
   app_fsm = new_app_fsm(user_data, sl_spidrv_exp_handle);

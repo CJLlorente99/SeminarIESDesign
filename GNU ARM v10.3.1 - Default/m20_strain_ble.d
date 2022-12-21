@@ -80,6 +80,8 @@ m20_strain_ble.o: ../m20_strain_ble.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_debug.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_init_eusart_instances.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h \
  ../ads1220.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h \
@@ -180,6 +182,8 @@ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_handles
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_debug.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_init_eusart_instances.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:
 ../ads1220.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h:
