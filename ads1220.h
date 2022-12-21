@@ -87,10 +87,6 @@ typedef struct ads1220_settings_s ads1220_settings_t;
 typedef struct ads1220_s ads1220_t;
 
 ads1220_t* init_ads1220(SPIDRV_Handle_t handle);
-void writeRegister(ads1220_t* ads1220, uint8_t address, uint8_t value);
-void writeAllRegister(ads1220_t* ads1220, ads1220_settings_t settings);
-uint8_t readRegister(ads1220_t* ads1220, uint8_t address);
-void readAllRegister(ads1220_t* ads1220, ads1220_settings_t* settings);
 int begin(ads1220_t* ads1220);
 void spi_command(ads1220_t* ads1220,uint8_t data_in);
 void ads1220_reset(ads1220_t* ads1220);
@@ -120,11 +116,6 @@ struct ads1220_s{
   ads1220_settings_t settings;
   ads1220_settings_t settingsR;
   SPIDRV_Handle_t handle;
-
-  void (*writeRegister)(ads1220_t* ads1220, uint8_t address, uint8_t value);
-  void (*writeAllRegister)(ads1220_t* ads1220, ads1220_settings_t settings);
-  uint8_t (*readRegister)(ads1220_t* ads1220, uint8_t address);
-  void (*readAllRegister)(ads1220_t* ads1220, ads1220_settings_t* settings);
 
   // Public
   int (*begin)(ads1220_t* ads1220);
