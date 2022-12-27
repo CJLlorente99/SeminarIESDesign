@@ -162,7 +162,7 @@ wake_up(fsm_t* this){
   sl_status_t sc;
   sc = sl_sleeptimer_stop_timer(p_this->tmr);
   if(sc == SL_STATUS_OK){
-      app_log_info("Timer stopped correctly");
+      app_log_info("Timer stopped correctly\n");
   }
   // Bridge on pin high
   GPIO_PinOutSet(SL_EMLIB_GPIO_INIT_BRIDGEON_PORT, SL_EMLIB_GPIO_INIT_BRIDGEON_PIN);
@@ -172,10 +172,10 @@ wake_up(fsm_t* this){
   ads1220_t* ads1220 = p_this->ads1220;
   status = ads1220->begin(ads1220);
   if(status == 0){
-      app_log_info("Sensor register read correctly");
+      app_log_info("Sensor register read correctly\n");
       p_this->wakeup_completed_flag = 1;
   } else{
-      app_log_info("Sensor register read incorrectly");
+      app_log_info("Sensor register read incorrectly\n");
   }
 }
 
@@ -189,7 +189,7 @@ ask_for_next_data(fsm_t* this){
   ads1220_t* ads1220 = p_this->ads1220;
 
   // Select next sensor to be read
-  uint8_t nextSensor = p_this->num_data_retrieved;
+  int nextSensor = p_this->num_data_retrieved;
   // Send info to ADS1220 (mux)
   if(nextSensor < 3){
       // Ask for strain data
@@ -277,7 +277,7 @@ reset_timer_sleep(fsm_t* this){
   uint32_t timeout = 10;
   sc = sl_sleeptimer_start_timer(p_this->tmr, timeout, tmr_callback, p_this, 0, SL_SLEEPTIMER_PERIPHERAL_BURTC);
   if(sc == SL_STATUS_OK){
-        app_log_info("Timer started correctly");
+        app_log_info("Timer started correctly\n");
   }
 }
 
@@ -342,7 +342,7 @@ static void
 retrieval_callback(SPIDRV_Handle_t handle, Ecode_t transferStatus, int itemsTransferred){
   if(transferStatus == ECODE_EMDRV_SPIDRV_OK){
       sensorsReadCheck = 1;
-      app_log_info("All sensors information retrieved");
+      app_log_info("All sensors information retrieved\n");
   }
 }
 

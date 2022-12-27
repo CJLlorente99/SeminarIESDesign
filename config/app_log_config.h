@@ -83,7 +83,7 @@
 // <APP_LOG_NEW_LINE_R=> "\r"
 // <APP_LOG_NEW_LINE_RN=> "\r\n"
 // <i> Default: APP_LOG_NEW_LINE_N
-#define APP_LOG_NEW_LINE                        APP_LOG_NEW_LINE_N
+#define APP_LOG_NEW_LINE                        APP_LOG_NEW_LINE_RN
 
 #define APP_LOG_AUTO_NL                         0
 
@@ -162,7 +162,7 @@
 // <APP_LOG_HEXDUMP_PREFIX_X_L=> x
 // <i> Default: None
 // <i> Format string for hexdump
-#define APP_LOG_HEXDUMP_PREFIX                 APP_LOG_HEXDUMP_PREFIX_NONE
+#define APP_LOG_HEXDUMP_PREFIX                 APP_LOG_HEXDUMP_PREFIX_0X_L
 
 // <o APP_LOG_HEXDUMP_FORMAT> Format
 // <APP_LOG_HEXDUMP_FORMAT_PAD0_U=> Uppercase with 0 padding (0F)

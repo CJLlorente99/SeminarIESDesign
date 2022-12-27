@@ -44,7 +44,7 @@ struct app_fsm_s {
   // Timer
   sl_sleeptimer_timer_handle_t  *tmr;
   // Sensor data
-  uint16_t sensor_data[4];
+  int32_t sensor_data[4];
   // SPI handle
   SPIDRV_Handle_t spi_handle;
   // ADS1220
@@ -56,7 +56,7 @@ struct app_fsm_s {
   uint8_t data_retrieved_flag;
   uint8_t data_sent_flag;
   uint8_t sleep_possible_flag;
-  uint8_t num_data_retrieved;
+  int num_data_retrieved;
   // Flag to change between modes
   uint8_t change_mode_flag;
 };

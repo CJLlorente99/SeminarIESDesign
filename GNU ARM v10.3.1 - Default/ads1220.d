@@ -1,4 +1,4 @@
-ADS1220.o: ../ADS1220.c \
+ads1220.o: ../ads1220.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies/ADS1220.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h \

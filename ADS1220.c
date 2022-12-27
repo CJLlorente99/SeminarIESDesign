@@ -42,6 +42,7 @@ ads1220_t* init_ads1220(SPIDRV_Handle_t handle) // Constructor
   ads1220->select_mux_channels = (void*) select_mux_channels;
   ads1220->set_conv_mode_single_shot = (void*) set_conv_mode_single_shot;
   ads1220->temp_sense_on = (void*) temp_sense_on;
+  ads1220->temp_sense_off = (void*) temp_sense_off;
   ads1220->get_config_reg = (void*) get_config_reg;
   ads1220->read_data_samples = (void*) read_data_samples;
 
@@ -62,7 +63,7 @@ writeRegister(ads1220_t* ads1220, uint8_t address, uint8_t value)
 
   ecode = SPIDRV_MTransmitB(ads1220->handle, tx_buffer, sizeof(tx_buffer));
   if(ecode == ECODE_OK){
-      app_log_info("Write register operation completed successfully");
+      app_log_info("Write register operation completed successfully\n");
   }
 }
 
@@ -79,7 +80,7 @@ writeAllRegister(ads1220_t* ads1220, ads1220_settings_t settings)
 
   ecode = SPIDRV_MTransmitB(ads1220->handle, tx_buffer, sizeof(tx_buffer));
   if(ecode == ECODE_OK){
-      app_log_info("Write register operation completed successfully");
+      app_log_info("Write register operation completed successfully\n");
   }
 }
 
@@ -97,9 +98,9 @@ readRegister(ads1220_t* ads1220, uint8_t address)
 
     ecode = SPIDRV_MTransferB(ads1220->handle, tx_buffer, rx_buffer, 4);
     if(ecode == ECODE_OK){
-        app_log_info("Read register operation completed successfully");
+        app_log_info("Read register operation completed successfully\n");
     }
-    return rx_buffer[0];
+    return rx_buffer[1];
 }
 
 static void
@@ -116,7 +117,7 @@ readAllRegister(ads1220_t* ads1220, ads1220_settings_t* settings)
 
     ecode = SPIDRV_MTransferB(ads1220->handle, tx_buffer, settings, 5);
     if(ecode == ECODE_OK){
-        app_log_info("Read register operation completed successfully");
+        app_log_info("Read register operation completed successfully\n");
     }
 }
 
@@ -137,14 +138,22 @@ int begin(ads1220_t* ads1220)
   settings->reg2 = 0b01000000; //Settings: Vref External, No 50/60Hz rejection, power open, IDAC off
   settings->reg3 = 0b00000000; //Settings: IDAC1 disabled, IDAC2 disabled, DRDY pin only
 
-  writeAllRegister(ads1220, *settings);
+//  writeAllRegister(ads1220, *settings);
+  writeRegister(ads1220, CONFIG_REG0_ADDRESS, settings->reg0);
+  writeRegister(ads1220, CONFIG_REG1_ADDRESS, settings->reg1);
+  writeRegister(ads1220, CONFIG_REG2_ADDRESS, settings->reg2);
+  writeRegister(ads1220, CONFIG_REG3_ADDRESS, settings->reg3);
 
   sl_udelay_wait(100000);
 
   ads1220_settings_t* settingsR = &(ads1220->settingsR);
-  readAllRegister(ads1220, settingsR);
+//  readAllRegister(ads1220, settingsR);
+  settingsR->reg0 = readRegister(ads1220, CONFIG_REG0_ADDRESS);
+  settingsR->reg1 = readRegister(ads1220, CONFIG_REG1_ADDRESS);
+  settingsR->reg2 = readRegister(ads1220, CONFIG_REG2_ADDRESS);
+  settingsR->reg3 = readRegister(ads1220, CONFIG_REG3_ADDRESS);
 
-  app_log_info("Config_Reg : 0x%hhu 0x%hhu 0x%hhu 0x%hhu", settingsR->reg0, settingsR->reg1, settingsR->reg2, settingsR->reg3);
+  app_log_info("Config_Reg : 0x%hhu 0x%hhu 0x%hhu 0x%hhu\n", settingsR->reg0, settingsR->reg1, settingsR->reg2, settingsR->reg3);
 
   sl_udelay_wait(100000);
 
@@ -161,7 +170,7 @@ void spi_command(ads1220_t* ads1220,uint8_t data_in)
 
   ecode = SPIDRV_MTransmitB(ads1220->handle, tx_buffer, 2);
   if(ecode == ECODE_OK){
-      app_log_info("Command send correctly: 0x%hhu", &data_in);
+      app_log_info("Command send correctly: 0x%hhu\n", &data_in);
   }
 }
 
@@ -246,7 +255,10 @@ void temp_sense_off(ads1220_t* ads1220)
 void get_config_reg(ads1220_t* ads1220, ads1220_settings_t* settings)
 {
   ads1220_settings_t* settingsR = &(ads1220->settingsR);
-  readAllRegister(ads1220, settingsR);
+  settingsR->reg0 = readRegister(ads1220, CONFIG_REG0_ADDRESS);
+  settingsR->reg1 = readRegister(ads1220, CONFIG_REG1_ADDRESS);
+  settingsR->reg2 = readRegister(ads1220, CONFIG_REG2_ADDRESS);
+  settingsR->reg3 = readRegister(ads1220, CONFIG_REG3_ADDRESS);
 
   settings->reg0 = settingsR->reg0;
   settings->reg0 = settingsR->reg1;
@@ -255,7 +267,10 @@ void get_config_reg(ads1220_t* ads1220, ads1220_settings_t* settings)
 }
 
 void set_config_reg(ads1220_t* ads1220, ads1220_settings_t settings){
-  writeAllRegister(ads1220, settings);
+  writeRegister(ads1220, CONFIG_REG0_ADDRESS, settings.reg0);
+  writeRegister(ads1220, CONFIG_REG1_ADDRESS, settings.reg1);
+  writeRegister(ads1220, CONFIG_REG2_ADDRESS, settings.reg2);
+  writeRegister(ads1220, CONFIG_REG3_ADDRESS, settings.reg3);
 }
 
 int32_t read_data_samples(ads1220_t* ads1220)
@@ -268,7 +283,7 @@ int32_t read_data_samples(ads1220_t* ads1220)
   {
     ecode = SPIDRV_MReceiveB(ads1220->handle, &rx_buffer[i], 1);
     if(ecode == ECODE_OK){
-        app_log_info("Data sample received: 0x%hhu", &rx_buffer[i]);
+        app_log_info("Data sample received: 0x%hhu\n", &rx_buffer[i]);
     }
   }
 
