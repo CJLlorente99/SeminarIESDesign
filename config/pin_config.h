@@ -115,6 +115,22 @@
 // [I2C0]$
 
 // $[EUART0]
+// EUART0 CTS on PA08
+#define EUART0_CTS_PORT                          gpioPortA
+#define EUART0_CTS_PIN                           8
+
+// EUART0 RTS on PA07
+#define EUART0_RTS_PORT                          gpioPortA
+#define EUART0_RTS_PIN                           7
+
+// EUART0 RX on PA06
+#define EUART0_RX_PORT                           gpioPortA
+#define EUART0_RX_PIN                            6
+
+// EUART0 TX on PA05
+#define EUART0_TX_PORT                           gpioPortA
+#define EUART0_TX_PIN                            5
+
 // [EUART0]$
 
 // $[PTI]
@@ -136,7 +152,7 @@
 #define bridgeON_PIN                             0
 
 #define ChangeMode_PORT                          gpioPortB
-#define ChangeMode_PIN                           0
+#define ChangeMode_PIN                           1
 
 #define DataReady_PORT                           gpioPortB
 #define DataReady_PIN                            2

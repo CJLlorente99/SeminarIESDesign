@@ -155,6 +155,8 @@ check_continuous_mode(fsm_t* this){
 
 static void
 wake_up(fsm_t* this){
+//  sl_power_manager_add_em_requirement(SL_POWER_MANAGER_EM1);
+
   app_fsm_t* p_this = this->user_data;
   p_this->wakeup_timer_flag = 0;
 
@@ -248,10 +250,10 @@ power_down_interface_send_data(fsm_t* this){
   // Send data through BLE
   sc = sl_bt_torque_send_data((uint8_t*)result, 4*sizeof(float));
   if(sc == SL_STATUS_OK){
-      app_log_info("Attribute send: 0x%f", result[0]);
-      app_log_info("Attribute send: 0x%f", result[1]);
-      app_log_info("Attribute send: 0x%f", result[2]);
-      app_log_info("Attribute send: 0x%f", result[3]);
+      app_log_info("Attribute send: 0x%f\n", result[0]);
+      app_log_info("Attribute send: 0x%f\n", result[1]);
+      app_log_info("Attribute send: 0x%f\n", result[2]);
+      app_log_info("Attribute send: 0x%f\n", result[3]);
       p_this->data_sent_flag = 1;
   }
 }
@@ -274,11 +276,14 @@ reset_timer_sleep(fsm_t* this){
 
   // Start timer
   sl_status_t sc;
-  uint32_t timeout = 10;
+  uint32_t timeout = 10000;
   sc = sl_sleeptimer_start_timer(p_this->tmr, timeout, tmr_callback, p_this, 0, SL_SLEEPTIMER_PERIPHERAL_BURTC);
   if(sc == SL_STATUS_OK){
         app_log_info("Timer started correctly\n");
   }
+
+//  sl_power_manager_remove_em_requirement(SL_POWER_MANAGER_EM1);
+//  sl_power_manager_sleep();
 }
 
 static void

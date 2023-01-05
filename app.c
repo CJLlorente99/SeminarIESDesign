@@ -55,6 +55,8 @@ SL_WEAK void app_init(void)
   CMU_ClockSelectSet(cmuClock_BURTC, cmuSelect_ULFRCO);
   CMU_ClockEnable(cmuClock_BURTC, true);
   CMU_OscillatorEnable(cmuOsc_ULFRCO, true, true);
+//  void* ptr = 0x40064000;
+//  memcpy((void*)(ptr + 0x024 + 30), (uint32_t)1, 2);
   sl_status_t sc;
   sc = sl_sleeptimer_init();
   if(sc == SL_STATUS_OK){
@@ -70,7 +72,7 @@ SL_WEAK void app_init(void)
 //  GPIO_IntClear((uint32_t)1);
   // TODO: IntEnable should be the pins or the interrupt numbers?
 //  GPIO_IntEnable((uint32_t)SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN||(uint32_t)SL_EMLIB_GPIO_INIT_DATAREADY_PIN);
-  // GPIO_EM4EnablePinWakeup()
+//   GPIO_EM4EnablePinWakeup(SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN, (uint32_t)1);
 //  GPIO_Lock();
 
   // Initialize and create FSM
