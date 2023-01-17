@@ -38,6 +38,7 @@
 #include "sl_emlib_gpio_init_dataReady_config.h"
 #include "sl_spidrv_instances.h"
 #include "m20_strain_ble.h"
+#include "em_gpio.h"
 
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
@@ -55,8 +56,7 @@ SL_WEAK void app_init(void)
   CMU_ClockSelectSet(cmuClock_BURTC, cmuSelect_ULFRCO);
   CMU_ClockEnable(cmuClock_BURTC, true);
   CMU_OscillatorEnable(cmuOsc_ULFRCO, true, true);
-//  void* ptr = 0x40064000;
-//  memcpy((void*)(ptr + 0x024 + 30), (uint32_t)1, 2);
+
   sl_status_t sc;
   sc = sl_sleeptimer_init();
   if(sc == SL_STATUS_OK){
@@ -64,16 +64,8 @@ SL_WEAK void app_init(void)
   }
 
   // Initialize GPIO (partially done with the wizard, in autogen)
-//  GPIO_Unlock();
-//  GPIO_IntDisable((uint32_t)1); // 0xFFFFFFFF
   GPIO_ExtIntConfig(SL_EMLIB_GPIO_INIT_CHANGEMODE_PORT, SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN, 1, RISINGCHANGEMODE, FALLINGCHANGEMODE, true);
   GPIO_ExtIntConfig(SL_EMLIB_GPIO_INIT_DATAREADY_PORT, SL_EMLIB_GPIO_INIT_DATAREADY_PIN, 2, RISINGMEASUREREADY, FALLINGMEASUREREADY, true);
-
-//  GPIO_IntClear((uint32_t)1);
-  // TODO: IntEnable should be the pins or the interrupt numbers?
-//  GPIO_IntEnable((uint32_t)SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN||(uint32_t)SL_EMLIB_GPIO_INIT_DATAREADY_PIN);
-//   GPIO_EM4EnablePinWakeup(SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN, (uint32_t)1);
-//  GPIO_Lock();
 
   // Initialize and create FSM
   app_fsm_t* user_data = malloc(sizeof(app_fsm_t));

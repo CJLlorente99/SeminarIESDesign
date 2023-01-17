@@ -45,6 +45,7 @@ static uint8_t* change_mode_flag;
  * Guard function declaration
  */
 static int check_wakeup_timer(fsm_t* this);
+static int check_change_mode(fsm_t* this);
 static int check_wakeup_completed(fsm_t* this);
 static int check_all_data_retrieved(fsm_t* this);
 static int check_data_sent_continuous(fsm_t* this);
@@ -72,6 +73,7 @@ static void reset_no_timer(fsm_t* this);
  */
 static fsm_trans_t app_fsm_tt[] = {
       { SLEEPING, check_wakeup_timer, WAKING_UP, wake_up},
+      { SLEEPING, check_change_mode, WAKING_UP, wake_up},
       { WAKING_UP, check_wakeup_completed, ASKING_FOR_DATA, ask_for_next_data},
       { ASKING_FOR_DATA, check_all_data_retrieved, SENDING_DATA, power_down_interface_send_data},
       { ASKING_FOR_DATA, check_data_ready, RETRIEVING_DATA, retrieve_data},
@@ -91,6 +93,12 @@ static int
 check_wakeup_timer(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   return p_this->wakeup_timer_flag;
+}
+
+static int
+check_change_mode(fsm_t* this){
+  app_fsm_t* p_this = this->user_data;
+  return p_this->change_mode_flag;
 }
 
 static int
@@ -155,7 +163,8 @@ check_continuous_mode(fsm_t* this){
 
 static void
 wake_up(fsm_t* this){
-//  sl_power_manager_add_em_requirement(SL_POWER_MANAGER_EM1);
+  sl_power_manager_remove_em_requirement(SL_POWER_MANAGER_EM2);
+  sl_power_manager_add_em_requirement(SL_POWER_MANAGER_EM1);
 
   app_fsm_t* p_this = this->user_data;
   p_this->wakeup_timer_flag = 0;
@@ -282,8 +291,6 @@ reset_timer_sleep(fsm_t* this){
         app_log_info("Timer started correctly\n");
   }
 
-//  sl_power_manager_remove_em_requirement(SL_POWER_MANAGER_EM1);
-//  sl_power_manager_sleep();
 }
 
 static void
