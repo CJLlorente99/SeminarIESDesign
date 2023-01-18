@@ -23,7 +23,7 @@
 // <gpioModeWiredAndAlternatePullUp=> Open-drain output with pull-up (alternate)
 // <gpioModeWiredAndAlternatePullUpFilter=> Open-drain output with pull-up and filter (alternate)
 // <i> Default: gpioModePushPull
-#define SL_EMLIB_GPIO_INIT_CHANGEMODE_MODE        gpioModeInput
+#define SL_EMLIB_GPIO_INIT_CHANGEMODE_MODE        gpioModeInputPullFilter
 
 // <o SL_EMLIB_GPIO_INIT_CHANGEMODE_DOUT> DOUT <0-1>
 // <i> In push-pull mode: The drive direction for the pin
@@ -31,7 +31,7 @@
 // <i> In open-source mode: Set to 0 for the idle state
 // <i> In open-drain mode: Set to 1 for the idle state
 // <i> Default: 0
-#define SL_EMLIB_GPIO_INIT_CHANGEMODE_DOUT        0
+#define SL_EMLIB_GPIO_INIT_CHANGEMODE_DOUT        1
 
 // </h> end pin settings
 
@@ -42,7 +42,7 @@
 // <gpio> SL_EMLIB_GPIO_INIT_CHANGEMODE
 // $[GPIO_SL_EMLIB_GPIO_INIT_CHANGEMODE]
 #define SL_EMLIB_GPIO_INIT_CHANGEMODE_PORT       gpioPortB
-#define SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN        1
+#define SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN        0
 // [GPIO_SL_EMLIB_GPIO_INIT_CHANGEMODE]$
 
 // <<< sl:end pin_tool >>>

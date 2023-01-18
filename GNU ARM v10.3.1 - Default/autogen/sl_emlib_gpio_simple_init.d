@@ -5,6 +5,7 @@ autogen/sl_emlib_gpio_simple_init.o: \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_bridgeON_config.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_changeMode_config.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_dataReady_config.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_emuWakeup_config.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220sc22hna.h \
@@ -68,6 +69,7 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\init\gpio_simple\s
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_bridgeON_config.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_changeMode_config.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_dataReady_config.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_emuWakeup_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220sc22hna.h:

@@ -152,7 +152,10 @@
 #define bridgeON_PIN                             0
 
 #define ChangeMode_PORT                          gpioPortB
-#define ChangeMode_PIN                           1
+#define ChangeMode_PIN                           0
+
+#define emu4Wakeup_PORT                          gpioPortB
+#define emu4Wakeup_PIN                           1
 
 #define DataReady_PORT                           gpioPortB
 #define DataReady_PIN                            2

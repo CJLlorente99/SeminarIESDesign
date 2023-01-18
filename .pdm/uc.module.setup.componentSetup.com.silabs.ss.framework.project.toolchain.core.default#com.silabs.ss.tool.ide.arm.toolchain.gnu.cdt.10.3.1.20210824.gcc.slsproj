@@ -281,6 +281,7 @@
           <file name="em_ldma.c" uri="studio:/sdk/platform/emlib/src/em_ldma.c"/>
           <file name="em_msc.c" uri="studio:/sdk/platform/emlib/src/em_msc.c"/>
           <file name="em_prs.c" uri="studio:/sdk/platform/emlib/src/em_prs.c"/>
+          <file name="em_rmu.c" uri="studio:/sdk/platform/emlib/src/em_rmu.c"/>
           <file name="em_rtcc.c" uri="studio:/sdk/platform/emlib/src/em_rtcc.c"/>
           <file name="em_se.c" uri="studio:/sdk/platform/emlib/src/em_se.c"/>
           <file name="em_system.c" uri="studio:/sdk/platform/emlib/src/em_system.c"/>
@@ -305,6 +306,7 @@
           <file name="em_msc.h" uri="studio:/sdk/platform/emlib/inc/em_msc.h"/>
           <file name="em_msc_compat.h" uri="studio:/sdk/platform/emlib/inc/em_msc_compat.h"/>
           <file name="em_prs.h" uri="studio:/sdk/platform/emlib/inc/em_prs.h"/>
+          <file name="em_rmu.h" uri="studio:/sdk/platform/emlib/inc/em_rmu.h"/>
           <file name="em_rtcc.h" uri="studio:/sdk/platform/emlib/inc/em_rtcc.h"/>
           <file name="em_se.h" uri="studio:/sdk/platform/emlib/inc/em_se.h"/>
           <file name="em_syscfg.h" uri="studio:/sdk/platform/emlib/inc/em_syscfg.h"/>

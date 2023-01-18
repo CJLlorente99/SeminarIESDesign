@@ -35,8 +35,8 @@
  * App constants
  */
 
-#define RISINGCHANGEMODE true
-#define FALLINGCHANGEMODE false
+#define RISINGCHANGEMODE false
+#define FALLINGCHANGEMODE true
 #define RISINGMEASUREREADY false
 #define FALLINGMEASUREREADY true
 

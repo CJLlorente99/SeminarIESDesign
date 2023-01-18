@@ -46,7 +46,7 @@
 // <emuPinRetentionEm4Exit=> Retention through EM4: Pads enter reset state when exiting EM4.
 // <emuPinRetentionLatch=> Retention through EM4 and wakeup.
 // <i> Default: emuPinRetentionDisable
-#define SL_DEVICE_INIT_EMU_EM4_PIN_RETENTION_MODE  emuPinRetentionDisable
+#define SL_DEVICE_INIT_EMU_EM4_PIN_RETENTION_MODE  emuPinRetentionLatch
 
 // <<< end of configuration section >>>
 

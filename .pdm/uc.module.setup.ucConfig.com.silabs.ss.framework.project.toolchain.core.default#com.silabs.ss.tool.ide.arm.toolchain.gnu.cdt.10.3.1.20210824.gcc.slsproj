@@ -18,6 +18,7 @@
     <file name="sl_emlib_gpio_init_bridgeON_config.h" generated="true" linked="false"/>
     <file name="sl_emlib_gpio_init_changeMode_config.h" generated="true" linked="false"/>
     <file name="sl_emlib_gpio_init_dataReady_config.h" generated="true" linked="false"/>
+    <file name="sl_emlib_gpio_init_emuWakeup_config.h" generated="true" linked="false"/>
     <file name="sl_bluetooth_connection_config.h" generated="true" linked="false"/>
     <file name="sl_debug_swo_config.h" generated="true" linked="false"/>
     <file name="sl_spidrv_exp_config.h" generated="true" linked="false"/>

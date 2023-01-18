@@ -102,7 +102,8 @@ app.o: ../app.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\udelay\inc\sl_udelay.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_bridgeON_config.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_burtc.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
@@ -210,3 +211,4 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\udelay\inc\sl_udelay.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_bridgeON_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_burtc.h:

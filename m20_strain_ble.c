@@ -6,6 +6,10 @@
  */
 
 #include "m20_strain_ble.h"
+#include "em_rmu.h"
+#include "em_gpio.h"
+#include "sl_emlib_gpio_init_changeMode_config.h"
+#include "sl_emlib_gpio_init_emuWakeup_config.h"
 
 /*
  * Callback declaration
@@ -163,11 +167,21 @@ check_continuous_mode(fsm_t* this){
 
 static void
 wake_up(fsm_t* this){
-  sl_power_manager_remove_em_requirement(SL_POWER_MANAGER_EM2);
-  sl_power_manager_add_em_requirement(SL_POWER_MANAGER_EM1);
 
   app_fsm_t* p_this = this->user_data;
   p_this->wakeup_timer_flag = 0;
+
+  EMU_UnlatchPinRetention();
+  uint32_t resetCause = RMU_ResetCauseGet();
+  RMU_ResetCauseClear();
+  if (resetCause & EMU_RSTCAUSE_EM4){
+      app_log_info("Reset cause is EM4\n");
+  }
+
+  // Check reset cause
+  uint32_t mask;
+  mask = GPIO_EM4GetPinWakeupCause();
+  app_log_info("Cause mask 0x%X \n", mask);
 
   // Stop timer
   sl_status_t sc;
@@ -287,16 +301,18 @@ reset_timer_sleep(fsm_t* this){
   sl_status_t sc;
   uint32_t timeout = 10000;
   sc = sl_sleeptimer_start_timer(p_this->tmr, timeout, tmr_callback, p_this, 0, SL_SLEEPTIMER_PERIPHERAL_BURTC);
+//  sc = sl_sleeptimer_start_timer(p_this->tmr, timeout, tmr_callback, p_this, 0, SL_SLEEPTIMER_NO_HIGH_PRECISION_HF_CLOCKS_REQUIRED_FLAG);
   if(sc == SL_STATUS_OK){
         app_log_info("Timer started correctly\n");
   }
-
+  EMU_EnterEM4();
 }
 
 static void
 reset_no_timer(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->sleep_possible_flag = 0;
+  EMU_EnterEM4();
 }
 
 /*
@@ -348,6 +364,7 @@ tmr_callback(sl_sleeptimer_timer_handle_t* handle, void* data)
   app_fsm_t* p_this = data;
   p_this->wakeup_timer_flag = 1;
   // Callback should wake up from sleep mode too (only if EM4)
+  // when the timer expires, prevent return to sleep
 }
 
 static void
@@ -362,6 +379,7 @@ static void
 change_mode_callback(uint8_t intNo){
   if (intNo == 1){
       *change_mode_flag = !(*change_mode_flag);
+      app_log_info("Change mode\n");
   }
 }
 

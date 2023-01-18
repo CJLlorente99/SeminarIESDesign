@@ -29,6 +29,7 @@ sl_device_init_lfxo_config.h=-1803899880
 sl_emlib_gpio_init_bridgeON_config.h=-1273848381
 sl_emlib_gpio_init_changeMode_config.h=-50161237
 sl_emlib_gpio_init_dataReady_config.h=951794624
+sl_emlib_gpio_init_emuWakeup_config.h=284937064
 sl_hfxo_manager_config.h=-306968694
 sl_iostream_eusart_vcom_config.h=-1153237293
 sl_memory_config.h=503032768

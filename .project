@@ -222,6 +222,11 @@
 			<locationURI>STUDIO_SDK_LOC/platform/emlib/inc/em_ramfunc.h</locationURI>
 		</link>
 		<link>
+			<name>gecko_sdk_4.1.3/platform/emlib/inc/em_rmu.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/emlib/inc/em_rmu.h</locationURI>
+		</link>
+		<link>
 			<name>gecko_sdk_4.1.3/platform/emlib/inc/em_rtcc.h</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/emlib/inc/em_rtcc.h</locationURI>
@@ -295,6 +300,11 @@
 			<name>gecko_sdk_4.1.3/platform/emlib/src/em_prs.c</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/emlib/src/em_prs.c</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_4.1.3/platform/emlib/src/em_rmu.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/emlib/src/em_rmu.c</locationURI>
 		</link>
 		<link>
 			<name>gecko_sdk_4.1.3/platform/emlib/src/em_rtcc.c</name>
