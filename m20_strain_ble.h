@@ -24,6 +24,7 @@
 #include "app.h"
 #include "em_rmu.h"
 #include "em_gpio.h"
+#include "em_burtc.h"
 
 typedef struct app_fsm_s app_fsm_t;
 

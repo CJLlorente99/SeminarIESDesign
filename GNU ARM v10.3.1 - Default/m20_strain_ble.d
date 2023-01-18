@@ -102,7 +102,8 @@ m20_strain_ble.o: ../m20_strain_ble.c \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_emuWakeup_config.h \
  ../app.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_rmu.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_burtc.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 ../m20_strain_ble.h:
 ../sl_bt_m20_strain_sensor.h:
@@ -208,3 +209,4 @@ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_e
 ../app.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_rmu.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_burtc.h:

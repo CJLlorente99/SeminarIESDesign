@@ -33,26 +33,15 @@
 #include "gatt_db.h"
 #include "app.h"
 #include "fsm.h"
-#include "sl_emlib_gpio_init_changeMode_config.h"
-#include "sl_emlib_gpio_init_dataReady_config.h"
 #include "sl_spidrv_instances.h"
 #include "m20_strain_ble.h"
-#include "em_gpio.h"
-#include "em_burtc.h"
+
 
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
 
 // FSM object
 static fsm_t* app_fsm;
-
-/**************************************************************************//**
- * @brief  BURTC Handler
- *****************************************************************************/
-void BURTC_IRQHandler(void)
-{
-  BURTC_IntClear(BURTC_IF_COMP); // compare match
-}
 
 /**************************************************************************//**
  * Application Init.

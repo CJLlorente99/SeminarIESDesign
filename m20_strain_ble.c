@@ -85,6 +85,18 @@ static fsm_trans_t app_fsm_tt[] = {
       { -1, NULL, -1, NULL},
 };
 
+/**************************************************************************//**
+ * @brief  BURTC Handler
+ *****************************************************************************/
+static int wakeupTimer = 0;
+void BURTC_IRQHandler(void)
+{
+  BURTC_IntClear(BURTC_IF_COMP); // compare match
+  app_log_info("Halo\n");
+  wakeupTimer = 1;
+}
+
+
 /*
  * Guard funtions
  */
@@ -167,6 +179,7 @@ wake_up(fsm_t* this){
   p_this->wakeup_timer_flag = 0;
 
   // Determine whether reset is due to pin (switch to continuous mode) or timer (slow mode)
+  app_log_info("Wakeup timer %d\n", wakeupTimer);
 
   // Bridge on pin high
   GPIO_PinOutSet(SL_EMLIB_GPIO_INIT_BRIDGEON_PORT, SL_EMLIB_GPIO_INIT_BRIDGEON_PIN);
