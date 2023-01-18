@@ -50,11 +50,9 @@ app.o: ../app.c \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_component_catalog.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_common.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_sleeptimer_config.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\app\common\util\app_assert\app_assert.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_assert_config.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\app\common\util\app_log\app_log.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_enum.h \
@@ -69,6 +67,8 @@ app.o: ../app.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/emlib_core_debug_config.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_slist.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_sleeptimer_config.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_emu.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h \
@@ -102,6 +102,8 @@ app.o: ../app.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\udelay\inc\sl_udelay.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_bridgeON_config.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_emuWakeup_config.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_rmu.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_burtc.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
@@ -155,11 +157,9 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_component_catalog.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_common.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_sleeptimer_config.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\app\common\util\app_assert\app_assert.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_assert_config.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\app\common\util\app_log\app_log.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_enum.h:
@@ -174,6 +174,8 @@ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_power_manager_con
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/emlib_core_debug_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_slist.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_sleeptimer_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_emu.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h:
@@ -210,5 +212,7 @@ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/dmadrv_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\udelay\inc\sl_udelay.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_bridgeON_config.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_emuWakeup_config.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_rmu.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_burtc.h:

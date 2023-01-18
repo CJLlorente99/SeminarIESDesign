@@ -28,7 +28,6 @@
  *
  ******************************************************************************/
 #include "em_common.h"
-#include "sl_sleeptimer.h"
 #include "app_assert.h"
 #include "sl_bluetooth.h"
 #include "gatt_db.h"
@@ -41,9 +40,6 @@
 #include "em_gpio.h"
 #include "em_burtc.h"
 
-#define EM4WU_EM4WUEN_NUM   (3)                       // PD2 is EM4WUEN pin 9
-#define EM4WU_EM4WUEN_MASK  (1 << EM4WU_EM4WUEN_NUM)
-
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
 
@@ -51,35 +47,50 @@ static uint8_t advertising_set_handle = 0xff;
 static fsm_t* app_fsm;
 
 /**************************************************************************//**
+ * @brief  BURTC Handler
+ *****************************************************************************/
+void BURTC_IRQHandler(void)
+{
+  BURTC_IntClear(BURTC_IF_COMP); // compare match
+}
+
+/**************************************************************************//**
  * Application Init.
  *****************************************************************************/
 // SL_WEAK is no more necessary after the method does something
 SL_WEAK void app_init(void)
 {
+  EMU_UnlatchPinRetention();
+
   // Enter EM4
   EMU_EM4Init_TypeDef em4Init = EMU_EM4INIT_DEFAULT;
-  em4Init.retainUlfrco = true;
+  em4Init.retainUlfrco = false;
   em4Init.retainLfrco = false;
   em4Init.retainLfxo = false;
   em4Init.pinRetentionMode = emuPinRetentionLatch;
   EMU_EM4Init(&em4Init);
 
-  // Initialize sleeptimer
-  CMU_ClockSelectSet(cmuClock_BURTC, cmuSelect_ULFRCO);
+  // Init BURTC
+  CMU_ClockSelectSet(cmuClock_EM4GRPACLK, cmuSelect_ULFRCO);
   CMU_ClockEnable(cmuClock_BURTC, true);
-  CMU_OscillatorEnable(cmuOsc_ULFRCO, true, true);
+  CMU_ClockEnable(cmuClock_BURAM, true);
 
-  sl_status_t sc;
-  sc = sl_sleeptimer_init();
-  if(sc == SL_STATUS_OK){
-      app_log_info("Timer initialized\n");
-  }
+  BURTC_Init_TypeDef burtcInit = BURTC_INIT_DEFAULT;
+  burtcInit.compare0Top = true; // reset counter when counter reaches compare value
+  burtcInit.em4comp = true;     // BURTC compare interrupt wakes from EM4 (causes reset)
+  BURTC_Init(&burtcInit);
+
+  BURTC_CounterReset();
+  BURTC_CompareSet(0, 10000);
+
+  BURTC_IntEnable(BURTC_IEN_COMP);    // compare match
+  NVIC_EnableIRQ(BURTC_IRQn);
+  BURTC_Enable(true);
+
 
   // Initialize GPIO (partially done with the wizard, in autogen)
   GPIO_ExtIntConfig(SL_EMLIB_GPIO_INIT_CHANGEMODE_PORT, SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN, 1, RISINGCHANGEMODE, FALLINGCHANGEMODE, true);
   GPIO_ExtIntConfig(SL_EMLIB_GPIO_INIT_DATAREADY_PORT, SL_EMLIB_GPIO_INIT_DATAREADY_PIN, 2, RISINGMEASUREREADY, FALLINGMEASUREREADY, true);
-
-  GPIO_EM4EnablePinWakeup(EM4WU_EM4WUEN_MASK << _GPIO_EM4WUEN_EM4WUEN_SHIFT, 1);
 
   // Initialize and create FSM
   app_fsm_t* user_data = malloc(sizeof(app_fsm_t));

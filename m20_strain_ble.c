@@ -6,15 +6,10 @@
  */
 
 #include "m20_strain_ble.h"
-#include "em_rmu.h"
-#include "em_gpio.h"
-#include "sl_emlib_gpio_init_changeMode_config.h"
-#include "sl_emlib_gpio_init_emuWakeup_config.h"
 
 /*
  * Callback declaration
  */
-static void tmr_callback(sl_sleeptimer_timer_handle_t* handle, void* data);
 static void retrieval_callback(SPIDRV_Handle_t handle, Ecode_t transferStatus, int itemsTransferred);
 static void change_mode_callback(uint8_t intNo);
 static void ready_to_retrieve_callback(uint8_t intNo);
@@ -171,24 +166,8 @@ wake_up(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->wakeup_timer_flag = 0;
 
-  EMU_UnlatchPinRetention();
-  uint32_t resetCause = RMU_ResetCauseGet();
-  RMU_ResetCauseClear();
-  if (resetCause & EMU_RSTCAUSE_EM4){
-      app_log_info("Reset cause is EM4\n");
-  }
+  // Determine whether reset is due to pin (switch to continuous mode) or timer (slow mode)
 
-  // Check reset cause
-  uint32_t mask;
-  mask = GPIO_EM4GetPinWakeupCause();
-  app_log_info("Cause mask 0x%X \n", mask);
-
-  // Stop timer
-  sl_status_t sc;
-  sc = sl_sleeptimer_stop_timer(p_this->tmr);
-  if(sc == SL_STATUS_OK){
-      app_log_info("Timer stopped correctly\n");
-  }
   // Bridge on pin high
   GPIO_PinOutSet(SL_EMLIB_GPIO_INIT_BRIDGEON_PORT, SL_EMLIB_GPIO_INIT_BRIDGEON_PIN);
 
@@ -297,14 +276,6 @@ reset_timer_sleep(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->sleep_possible_flag = 0;
 
-  // Start timer
-  sl_status_t sc;
-  uint32_t timeout = 10000;
-  sc = sl_sleeptimer_start_timer(p_this->tmr, timeout, tmr_callback, p_this, 0, SL_SLEEPTIMER_PERIPHERAL_BURTC);
-//  sc = sl_sleeptimer_start_timer(p_this->tmr, timeout, tmr_callback, p_this, 0, SL_SLEEPTIMER_NO_HIGH_PRECISION_HF_CLOCKS_REQUIRED_FLAG);
-  if(sc == SL_STATUS_OK){
-        app_log_info("Timer started correctly\n");
-  }
   EMU_EnterEM4();
 }
 
@@ -312,6 +283,7 @@ static void
 reset_no_timer(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->sleep_possible_flag = 0;
+
   EMU_EnterEM4();
 }
 
@@ -342,10 +314,6 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle){
   // ads1220 init
   user_data->ads1220 = init_ads1220(user_data->spi_handle);
 
-  // Timer handle initialization
-  sl_sleeptimer_timer_handle_t* tmr = malloc(sizeof(sl_sleeptimer_timer_handle_t));
-  user_data->tmr = tmr;
-
   // GPIO Interruptions
   GPIOINT_CallbackRegister(1, change_mode_callback);
   change_mode_flag = &(user_data->change_mode_flag);
@@ -358,14 +326,6 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle){
 /*
  * Callbacks
  */
-static void
-tmr_callback(sl_sleeptimer_timer_handle_t* handle, void* data)
-{
-  app_fsm_t* p_this = data;
-  p_this->wakeup_timer_flag = 1;
-  // Callback should wake up from sleep mode too (only if EM4)
-  // when the timer expires, prevent return to sleep
-}
 
 static void
 retrieval_callback(SPIDRV_Handle_t handle, Ecode_t transferStatus, int itemsTransferred){
@@ -379,7 +339,6 @@ static void
 change_mode_callback(uint8_t intNo){
   if (intNo == 1){
       *change_mode_flag = !(*change_mode_flag);
-      app_log_info("Change mode\n");
   }
 }
 

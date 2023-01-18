@@ -99,10 +99,10 @@ m20_strain_ble.o: ../m20_strain_ble.c \
  ../fsm.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_changeMode_config.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_bridgeON_config.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_emuWakeup_config.h \
  ../app.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_rmu.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_emuWakeup_config.h
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 ../m20_strain_ble.h:
 ../sl_bt_m20_strain_sensor.h:
@@ -204,7 +204,7 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\udelay\inc\sl_ud
 ../fsm.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_changeMode_config.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_bridgeON_config.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_emuWakeup_config.h:
 ../app.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_rmu.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_emuWakeup_config.h:

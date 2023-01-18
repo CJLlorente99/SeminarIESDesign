@@ -16,12 +16,14 @@
 #include "app_log.h"
 #include "spidrv.h"
 #include "fsm.h"
-#include "sl_sleeptimer.h"
 #include "sl_emlib_gpio_init_changeMode_config.h"
 #include "sl_emlib_gpio_init_dataReady_config.h"
 #include "sl_emlib_gpio_init_bridgeON_config.h"
+#include "sl_emlib_gpio_init_emuWakeup_config.h"
 #include "gpiointerrupt.h"
 #include "app.h"
+#include "em_rmu.h"
+#include "em_gpio.h"
 
 typedef struct app_fsm_s app_fsm_t;
 
@@ -42,7 +44,6 @@ fsm_t* new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle);
 struct app_fsm_s {
   void* user_data;
   // Timer
-  sl_sleeptimer_timer_handle_t  *tmr;
   // Sensor data
   int32_t sensor_data[4];
   // SPI handle
