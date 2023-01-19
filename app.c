@@ -55,7 +55,8 @@ SL_WEAK void app_init(void)
   em4Init.retainUlfrco = false;
   em4Init.retainLfrco = false;
   em4Init.retainLfxo = false;
-  em4Init.pinRetentionMode = emuPinRetentionLatch;
+  em4Init.em4State = emuEM4Shutoff;
+  em4Init.pinRetentionMode = emuPinRetentionDisable;
   EMU_EM4Init(&em4Init);
 
   // Init BURTC
@@ -74,7 +75,6 @@ SL_WEAK void app_init(void)
   BURTC_IntEnable(BURTC_IEN_COMP);    // compare match
   NVIC_EnableIRQ(BURTC_IRQn);
   BURTC_Enable(true);
-
 
   // Initialize GPIO (partially done with the wizard, in autogen)
   GPIO_ExtIntConfig(SL_EMLIB_GPIO_INIT_CHANGEMODE_PORT, SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN, 1, RISINGCHANGEMODE, FALLINGCHANGEMODE, true);

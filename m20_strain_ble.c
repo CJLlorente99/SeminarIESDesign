@@ -13,7 +13,6 @@
 /*
  * Callback declaration
  */
-static void retrieval_callback(SPIDRV_Handle_t handle, Ecode_t transferStatus, int itemsTransferred);
 static void change_mode_callback(uint8_t intNo);
 static void ready_to_retrieve_callback(uint8_t intNo);
 
@@ -295,9 +294,6 @@ try_to_sleep(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->data_sent_flag = 0;
 
-  // sl_status_t sc;
-  // Can I go to sleep?
-  // sl_power_manager_is_ok_to_sleep()
   p_this->sleep_possible_flag = 1;
 }
 
@@ -306,7 +302,7 @@ reset_timer_sleep(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->sleep_possible_flag = 0;
 
-  GPIO_EM4EnablePinWakeup(EM4WU_EM4WUEN_MASK << _GPIO_EM4WUEN_EM4WUEN_SHIFT, 1);
+  GPIO_EM4EnablePinWakeup(EM4WU_EM4WUEN_MASK << _GPIO_EM4WUEN_EM4WUEN_SHIFT, 0);
 
   EMU_EnterEM4();
 }
@@ -358,14 +354,6 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle){
 /*
  * Callbacks
  */
-
-static void
-retrieval_callback(SPIDRV_Handle_t handle, Ecode_t transferStatus, int itemsTransferred){
-  if(transferStatus == ECODE_EMDRV_SPIDRV_OK){
-      sensorsReadCheck = 1;
-      app_log_info("All sensors information retrieved\n");
-  }
-}
 
 static void
 change_mode_callback(uint8_t intNo){
