@@ -7,6 +7,9 @@
 
 #include "m20_strain_ble.h"
 
+#define EM4WU_EM4WUEN_NUM   (3)
+#define EM4WU_EM4WUEN_MASK  (1 << EM4WU_EM4WUEN_NUM)
+
 /*
  * Callback declaration
  */
@@ -92,7 +95,6 @@ static int wakeupTimer = 0;
 void BURTC_IRQHandler(void)
 {
   BURTC_IntClear(BURTC_IF_COMP); // compare match
-  app_log_info("Halo\n");
   wakeupTimer = 1;
 }
 
@@ -177,6 +179,8 @@ wake_up(fsm_t* this){
 
   app_fsm_t* p_this = this->user_data;
   p_this->wakeup_timer_flag = 0;
+
+  GPIO_EM4DisablePinWakeup(EM4WU_EM4WUEN_MASK << _GPIO_EM4WUEN_EM4WUEN_SHIFT);
 
   // Determine whether reset is due to pin (switch to continuous mode) or timer (slow mode)
   EMU_UnlatchPinRetention();
@@ -301,6 +305,8 @@ static void
 reset_timer_sleep(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->sleep_possible_flag = 0;
+
+  GPIO_EM4EnablePinWakeup(EM4WU_EM4WUEN_MASK << _GPIO_EM4WUEN_EM4WUEN_SHIFT, 1);
 
   EMU_EnterEM4();
 }
