@@ -81,6 +81,8 @@ SL_WEAK void app_init(void)
   GPIO_ExtIntConfig(SL_EMLIB_GPIO_INIT_CHANGEMODE_PORT, SL_EMLIB_GPIO_INIT_CHANGEMODE_PIN, 1, RISINGCHANGEMODE, FALLINGCHANGEMODE, true);
   GPIO_ExtIntConfig(SL_EMLIB_GPIO_INIT_DATAREADY_PORT, SL_EMLIB_GPIO_INIT_DATAREADY_PIN, 2, RISINGMEASUREREADY, FALLINGMEASUREREADY, true);
 
+  GPIO_EM4EnablePinWakeup(EM4WU_EM4WUEN_MASK << _GPIO_EM4WUEN_EM4WUEN_SHIFT, 1);
+
   // Initialize and create FSM
   app_fsm_t* user_data = malloc(sizeof(app_fsm_t));
   app_fsm = new_app_fsm(user_data, sl_spidrv_exp_handle);
