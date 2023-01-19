@@ -179,7 +179,20 @@ wake_up(fsm_t* this){
   p_this->wakeup_timer_flag = 0;
 
   // Determine whether reset is due to pin (switch to continuous mode) or timer (slow mode)
-  app_log_info("Wakeup timer %d\n", wakeupTimer);
+  EMU_UnlatchPinRetention();
+  uint32_t resetCause = RMU_ResetCauseGet();
+  RMU_ResetCauseClear();
+  if (resetCause & EMU_RSTCAUSE_EM4){
+      app_log_info("Reset cause is EM4\n");
+      if (wakeupTimer == 1) {
+          p_this->change_mode_flag = 0;
+          app_log_info("Wake up through timer\n");
+          wakeupTimer = 0;
+      } else{
+          p_this->change_mode_flag = 1;
+          app_log_info("Wake up through GPIO\n");
+      }
+  }
 
   // Bridge on pin high
   GPIO_PinOutSet(SL_EMLIB_GPIO_INIT_BRIDGEON_PORT, SL_EMLIB_GPIO_INIT_BRIDGEON_PIN);
