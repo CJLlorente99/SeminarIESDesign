@@ -15,6 +15,7 @@
  */
 static void change_mode_callback(uint8_t intNo);
 static void ready_to_retrieve_callback(uint8_t intNo);
+static void sleeptimer_callback(sl_sleeptimer_timer_handle_t* handle, void* data);
 
 /*
  * Auxiliar function declaration
@@ -38,8 +39,8 @@ enum states {
  * Local variables
  */
 static uint8_t sensorsReadCheck = 1;
-static uint8_t* data_ready_flag;
-static uint8_t* change_mode_flag;
+static uint8_t* data_ready_flag = 0;
+static uint8_t* change_mode_flag = 0;
 
 
 /*
@@ -160,7 +161,7 @@ check_sleep_not_possible(fsm_t* this){
 static int
 check_sleep_possible(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
-  return p_this->sleep_possible_flag && !p_this->change_mode_flag;
+  return p_this->sleep_possible_flag && !p_this->change_mode_flag && p_this->tmr_flag;
 }
 
 static int
@@ -294,6 +295,13 @@ try_to_sleep(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->data_sent_flag = 0;
 
+  bool aux;
+  sl_sleeptimer_is_timer_running(p_this->tmr, &aux);
+  if (!aux){
+    uint32_t timeout = sl_sleeptimer_ms_to_tick(20000);
+    sl_sleeptimer_start_timer(p_this->tmr, timeout, sleeptimer_callback, p_this, 1, SL_SLEEPTIMER_NO_HIGH_PRECISION_HF_CLOCKS_REQUIRED_FLAG);
+  }
+
   p_this->sleep_possible_flag = 1;
 }
 
@@ -301,6 +309,14 @@ static void
 reset_timer_sleep(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->sleep_possible_flag = 0;
+  p_this->tmr_flag = 0;
+
+  sl_sleeptimer_stop_timer(p_this->tmr);
+
+  // Close connections before going to sleep
+  for(int i = 0; i < p_this->nConnections; i++){
+      sl_bt_connection_close(p_this->connections[i]);
+  }
 
   GPIO_EM4EnablePinWakeup(EM4WU_EM4WUEN_MASK << _GPIO_EM4WUEN_EM4WUEN_SHIFT, 0);
 
@@ -311,6 +327,9 @@ static void
 reset_no_timer(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->sleep_possible_flag = 0;
+  p_this->tmr_flag = 0;
+
+  sl_sleeptimer_stop_timer(p_this->tmr);
 
   EMU_EnterEM4();
 }
@@ -319,7 +338,7 @@ reset_no_timer(fsm_t* this){
  * FSM initialization
  */
 fsm_t*
-new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle){
+new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle, uint8_t* connections, int* nConnections){
   // Initialized data
   user_data->sensor_data[0] = 0;
   user_data->sensor_data[1] = 0;
@@ -328,6 +347,8 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle){
 
   // Initilize handler
   user_data->spi_handle = spi_handle;
+  sl_sleeptimer_timer_handle_t* tmr = malloc(sizeof(sl_sleeptimer_timer_handle_t));
+  user_data->tmr = tmr;
 
   // Initialize flags
   user_data->wakeup_timer_flag = 1; // to activate the FSM
@@ -338,6 +359,11 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle){
   user_data->sleep_possible_flag = 0;
   user_data->num_data_retrieved = 0;
   user_data->change_mode_flag = 0;
+  user_data->tmr_flag = 0;
+
+  // BLE data
+  user_data->connections = connections;
+  user_data->nConnections = nConnections;
 
   // ads1220 init
   user_data->ads1220 = init_ads1220(user_data->spi_handle);
@@ -366,7 +392,14 @@ static void
 ready_to_retrieve_callback(uint8_t intNo){
   if (intNo == 2){
       *data_ready_flag = 1;
+//      app_log_info("Data ready\n");
   }
+}
+
+static void
+sleeptimer_callback(sl_sleeptimer_timer_handle_t* handle, void* data){
+  app_fsm_t* p_this = data;
+  p_this->tmr_flag = 1;
 }
 
 /*

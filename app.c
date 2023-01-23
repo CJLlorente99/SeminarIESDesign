@@ -41,6 +41,8 @@ static uint8_t advertising_set_handle = 0xff;
 
 // FSM object
 static fsm_t* app_fsm;
+uint8_t connections[10];
+int nConnections = 0;
 
 /**************************************************************************//**
  * Application Init.
@@ -82,7 +84,8 @@ SL_WEAK void app_init(void)
 
   // Initialize and create FSM
   app_fsm_t* user_data = malloc(sizeof(app_fsm_t));
-  app_fsm = new_app_fsm(user_data, sl_spidrv_exp_handle);
+  app_fsm = new_app_fsm(user_data, sl_spidrv_exp_handle, connections, &nConnections);
+
 }
 
 /**************************************************************************//**
@@ -106,6 +109,7 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
   bd_addr address;
   uint8_t address_type;
   uint8_t system_id[8];
+  sl_bt_evt_connection_opened_t connectionData;
 
   switch (SL_BT_MSG_ID(evt->header)) {
     // -------------------------------
@@ -159,6 +163,9 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
     // -------------------------------
     // This event indicates that a new connection was opened.
     case sl_bt_evt_connection_opened_id:
+      // Add new connections
+      connectionData = evt->data.evt_connection_opened;
+      connections[nConnections++] = connectionData.connection;
       break;
 
     // -------------------------------

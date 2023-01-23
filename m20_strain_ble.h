@@ -25,6 +25,7 @@
 #include "em_rmu.h"
 #include "em_gpio.h"
 #include "em_burtc.h"
+#include "sl_sleeptimer.h"
 
 typedef struct app_fsm_s app_fsm_t;
 
@@ -37,7 +38,7 @@ typedef struct app_fsm_s app_fsm_t;
 /*
  * FSM creation function declaration
  */
-fsm_t* new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle);
+fsm_t* new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle, uint8_t* connections, int* nConnections);
 
 /*
  * FSM user data structure definition
@@ -49,6 +50,8 @@ struct app_fsm_s {
   int32_t sensor_data[4];
   // SPI handle
   SPIDRV_Handle_t spi_handle;
+  // Sleeptimer
+  sl_sleeptimer_timer_handle_t* tmr;
   // ADS1220
   ads1220_t* ads1220;
   // Flags
@@ -59,8 +62,12 @@ struct app_fsm_s {
   uint8_t data_sent_flag;
   uint8_t sleep_possible_flag;
   int num_data_retrieved;
+  uint8_t tmr_flag;
   // Flag to change between modes
   uint8_t change_mode_flag;
+  // BLE data
+  uint8_t* connections;
+  int* nConnections;
 };
 
 #endif /* M20_STRAIN_BLE_FSM_H_ */
