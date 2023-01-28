@@ -23,6 +23,13 @@
 #define UINT16_TO_BYTE0(n)            ((uint8_t) (n))
 #define UINT16_TO_BYTE1(n)            ((uint8_t) ((n) >> 8))
 
+#define ADVLOCALNAME0 0x4d
+#define ADVLOCALNAME1 0x32
+#define ADVLOCALNAME2 0x30
+#define ADVLOCALNAME3 0x5f
+#define ADVLOCALNAME4 0x31
+
+
 typedef struct adv_format_s adv_format_t;
 
 sl_status_t sl_bt_torque_send_data(uint32_t number[4], uint8_t* advertisement_handle);
@@ -34,6 +41,9 @@ struct adv_format_s {
     uint8_t flags_len;     // Length of the Flags field.
     uint8_t flags_type;    // Type of the Flags field.
     uint8_t flags;         // Flags field.
+    uint8_t name_len;
+    uint8_t name_type;
+    uint8_t name[5];
     uint8_t mandata_len;   // Length of the Manufacturer Data field.
     uint8_t mandata_type;  // Type of the Manufacturer Data field.
     uint8_t comp_id[2];    // Company ID field.

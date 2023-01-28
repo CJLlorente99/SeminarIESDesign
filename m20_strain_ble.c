@@ -298,7 +298,7 @@ try_to_sleep(fsm_t* this){
   bool aux;
   sl_sleeptimer_is_timer_running(p_this->tmr, &aux);
   if (!aux){
-    uint32_t timeout = sl_sleeptimer_ms_to_tick(5000);
+    uint32_t timeout = sl_sleeptimer_ms_to_tick(1500);
     sl_sleeptimer_start_timer(p_this->tmr, timeout, sleeptimer_callback, p_this, 1, SL_SLEEPTIMER_NO_HIGH_PRECISION_HF_CLOCKS_REQUIRED_FLAG);
   }
 

@@ -17,8 +17,19 @@ sl_status_t sl_bt_torque_send_data(uint32_t number[4], uint8_t* advertisement_ha
   adv.flags_len = (uint8_t)2;
   adv.flags_type = 0x01;
   adv.flags = 0x04 | 0x02;
+
+  adv.name_len = 6;
+  adv.name_type = 0x09;
+  adv.name[0] = ADVLOCALNAME0;
+  adv.name[1] = ADVLOCALNAME1;
+  adv.name[2] = ADVLOCALNAME2;
+  adv.name[3] = ADVLOCALNAME3;
+  adv.name[4] = ADVLOCALNAME4;
+
   adv.mandata_len = (uint8_t)4*sizeof(float)+3;
   adv.mandata_type = 0xFF;
+
+
   adv.comp_id[0] = UINT16_TO_BYTE0(0x0C3F);
   adv.comp_id[1] = UINT16_TO_BYTE1(0x0C3F);
 

@@ -130,6 +130,9 @@ static void bcn_setup_adv_beaconing(void)
     uint8_t flags_len;     // Length of the Flags field.
     uint8_t flags_type;    // Type of the Flags field.
     uint8_t flags;         // Flags field.
+    uint8_t name_len;
+    uint8_t name_type;
+    uint8_t name[5];
     uint8_t mandata_len;   // Length of the Manufacturer Data field.
     uint8_t mandata_type;  // Type of the Manufacturer Data field.
     uint8_t comp_id[2];    // Company ID field.
@@ -144,6 +147,11 @@ static void bcn_setup_adv_beaconing(void)
     2,            // Length of field.
     0x01,         // Type of field.
     0x04 | 0x02,  // Flags: LE General Discoverable Mode, BR/EDR is disabled.
+
+    // Add name
+    6,           // Length of field
+    0x09,         // Type of field "Complete Local Name"
+    ADVLOCALNAME,
 
     // Manufacturer specific data.
     4*sizeof(float)+3,   // Length of field.

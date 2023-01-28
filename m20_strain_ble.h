@@ -35,6 +35,9 @@ typedef struct app_fsm_s app_fsm_t;
 #define VFSR VREF/PGA
 #define FSR (((long int)1<<23)-1)
 
+// Name in uint8_t
+#define ADVLOCALNAME { 0x4d, 0x32, 0x30, 0x5f, 0x31 }
+
 /*
  * FSM creation function declaration
  */
