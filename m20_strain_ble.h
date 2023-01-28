@@ -38,7 +38,7 @@ typedef struct app_fsm_s app_fsm_t;
 /*
  * FSM creation function declaration
  */
-fsm_t* new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle, uint8_t* connections, int* nConnections);
+fsm_t* new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle, uint8_t* advertisement_handle);
 
 /*
  * FSM user data structure definition
@@ -65,9 +65,8 @@ struct app_fsm_s {
   uint8_t tmr_flag;
   // Flag to change between modes
   uint8_t change_mode_flag;
-  // BLE data
-  uint8_t* connections;
-  int* nConnections;
+  // BL advertisement handle
+  uint8_t* advertisement_handle;
 };
 
 #endif /* M20_STRAIN_BLE_FSM_H_ */

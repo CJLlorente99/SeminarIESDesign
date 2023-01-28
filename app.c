@@ -39,10 +39,11 @@
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
 
+// Setup beaconing declaration
+static void bcn_setup_adv_beaconing(void);
+
 // FSM object
 static fsm_t* app_fsm;
-uint8_t connections[10];
-int nConnections = 0;
 
 /**************************************************************************//**
  * Application Init.
@@ -84,7 +85,7 @@ SL_WEAK void app_init(void)
 
   // Initialize and create FSM
   app_fsm_t* user_data = malloc(sizeof(app_fsm_t));
-  app_fsm = new_app_fsm(user_data, sl_spidrv_exp_handle, connections, &nConnections);
+  app_fsm = new_app_fsm(user_data, sl_spidrv_exp_handle, &advertising_set_handle);
 
 }
 
@@ -105,90 +106,89 @@ SL_WEAK void app_process_action(void)
  *****************************************************************************/
 void sl_bt_on_event(sl_bt_msg_t *evt)
 {
-  sl_status_t sc;
-  bd_addr address;
-  uint8_t address_type;
-  uint8_t system_id[8];
-  sl_bt_evt_connection_opened_t connectionData;
-
+  sl_status_t sc = SL_STATUS_OK;
   switch (SL_BT_MSG_ID(evt->header)) {
     // -------------------------------
     // This event indicates the device has started and the radio is ready.
     // Do not call any stack command before receiving this boot event!
     case sl_bt_evt_system_boot_id:
-
-      // Extract unique ID from BT Address.
-      sc = sl_bt_system_get_identity_address(&address, &address_type);
       app_assert_status(sc);
-
-      // Pad and reverse unique ID to get System ID.
-      system_id[0] = address.addr[5];
-      system_id[1] = address.addr[4];
-      system_id[2] = address.addr[3];
-      system_id[3] = 0xFF;
-      system_id[4] = 0xFE;
-      system_id[5] = address.addr[2];
-      system_id[6] = address.addr[1];
-      system_id[7] = address.addr[0];
-
-      sc = sl_bt_gatt_server_write_attribute_value(gattdb_system_id,
-                                                   0,
-                                                   sizeof(system_id),
-                                                   system_id);
-      app_assert_status(sc);
-
-      // Create an advertising set.
-      sc = sl_bt_advertiser_create_set(&advertising_set_handle);
-      app_assert_status(sc);
-
-      // Generate data for advertising
-      sc = sl_bt_legacy_advertiser_generate_data(advertising_set_handle,
-                                                 sl_bt_advertiser_general_discoverable);
-      app_assert_status(sc);
-
-      // Set advertising interval to 100ms.
-      sc = sl_bt_advertiser_set_timing(
-        advertising_set_handle,
-        160, // min. adv. interval (milliseconds * 1.6)
-        160, // max. adv. interval (milliseconds * 1.6)
-        0,   // adv. duration
-        0);  // max. num. adv. events
-      app_assert_status(sc);
-      // Start advertising and enable connections.
-      sc = sl_bt_legacy_advertiser_start(advertising_set_handle,
-                                         sl_bt_advertiser_connectable_scannable);
-      app_assert_status(sc);
+      // Initialize iBeacon ADV data.
+      bcn_setup_adv_beaconing();
       break;
 
-    // -------------------------------
-    // This event indicates that a new connection was opened.
-    case sl_bt_evt_connection_opened_id:
-      // Add new connections
-      connectionData = evt->data.evt_connection_opened;
-      connections[nConnections++] = connectionData.connection;
-      break;
-
-    // -------------------------------
-    // This event indicates that a connection was closed.
-    case sl_bt_evt_connection_closed_id:
-      // Generate data for advertising
-      sc = sl_bt_legacy_advertiser_generate_data(advertising_set_handle,
-                                                 sl_bt_advertiser_general_discoverable);
-      app_assert_status(sc);
-
-      // Restart advertising after client has disconnected.
-      sc = sl_bt_legacy_advertiser_start(advertising_set_handle,
-                                         sl_bt_advertiser_connectable_scannable);
-      app_assert_status(sc);
-      break;
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Add additional event handlers here as your application requires!      //
-    ///////////////////////////////////////////////////////////////////////////
-
-    // -------------------------------
-    // Default event handler.
     default:
       break;
   }
+}
+
+static void bcn_setup_adv_beaconing(void)
+{
+  sl_status_t sc;
+
+  PACKSTRUCT(struct {
+    uint8_t flags_len;     // Length of the Flags field.
+    uint8_t flags_type;    // Type of the Flags field.
+    uint8_t flags;         // Flags field.
+    uint8_t mandata_len;   // Length of the Manufacturer Data field.
+    uint8_t mandata_type;  // Type of the Manufacturer Data field.
+    uint8_t comp_id[2];    // Company ID field.
+    uint8_t strain1[4];
+    uint8_t strain2[4];
+    uint8_t strain3[4];
+    uint8_t temp[4];
+  })
+  bcn_beacon_adv_data
+    = {
+    // Flag bits - See Bluetooth 4.0 Core Specification , Volume 3, Appendix C, 18.1 for more details on flags.
+    2,            // Length of field.
+    0x01,         // Type of field.
+    0x04 | 0x02,  // Flags: LE General Discoverable Mode, BR/EDR is disabled.
+
+    // Manufacturer specific data.
+    4*sizeof(float)+3,   // Length of field.
+    0xFF, // Type of field.
+
+    // The first two data octets shall contain a company identifier code from
+    // the Assigned Numbers - Company Identifiers document.
+    // 0x0C3F = Not assigned
+    { UINT16_TO_BYTES(0x0C3F) },
+
+    // Info from first strain sensor
+    { FLOAT_TO_BYTES(0x11111111) },
+
+    // Info from second strain sensor
+    { FLOAT_TO_BYTES(0x22222222) },
+
+    // Info from third strain sensor
+    { FLOAT_TO_BYTES(0x33333333) },
+
+    // Info from first temperature sensor
+    { FLOAT_TO_BYTES(0x44444444) },
+    };
+
+  // Create an advertising set.
+  sc = sl_bt_advertiser_create_set(&advertising_set_handle);
+  app_assert_status(sc);
+
+  // Set custom advertising data.
+  sc = sl_bt_legacy_advertiser_set_data(advertising_set_handle,
+                                        0,
+                                        sizeof(bcn_beacon_adv_data),
+                                        (uint8_t *)(&bcn_beacon_adv_data));
+  app_assert_status(sc);
+
+  // Set advertising parameters. 10ms advertisement interval.
+  sc = sl_bt_advertiser_set_timing(
+    advertising_set_handle,
+    160,     // min. adv. interval (milliseconds * 1.6)
+    160,     // max. adv. interval (milliseconds * 1.6)
+    0,       // adv. duration
+    0);      // max. num. adv. events
+  app_assert_status(sc);
+
+  // Start advertising in user mode and disable connections.
+  sc = sl_bt_legacy_advertiser_start(advertising_set_handle,
+                                     sl_bt_advertiser_non_connectable);
+  app_assert_status(sc);
 }

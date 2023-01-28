@@ -280,7 +280,7 @@ power_down_interface_send_data(fsm_t* this){
   convertToMicroVTemp(&result[3], p_this->sensor_data[3]);
 
   // Send data through BLE
-  sc = sl_bt_torque_send_data((uint8_t*)result, 4*sizeof(float));
+  sc = sl_bt_torque_send_data((uint32_t*)result, p_this->advertisement_handle);
   if(sc == SL_STATUS_OK){
       app_log_info("Attribute send: 0x%f\n", result[0]);
       app_log_info("Attribute send: 0x%f\n", result[1]);
@@ -298,7 +298,7 @@ try_to_sleep(fsm_t* this){
   bool aux;
   sl_sleeptimer_is_timer_running(p_this->tmr, &aux);
   if (!aux){
-    uint32_t timeout = sl_sleeptimer_ms_to_tick(20000);
+    uint32_t timeout = sl_sleeptimer_ms_to_tick(5000);
     sl_sleeptimer_start_timer(p_this->tmr, timeout, sleeptimer_callback, p_this, 1, SL_SLEEPTIMER_NO_HIGH_PRECISION_HF_CLOCKS_REQUIRED_FLAG);
   }
 
@@ -312,11 +312,6 @@ reset_timer_sleep(fsm_t* this){
   p_this->tmr_flag = 0;
 
   sl_sleeptimer_stop_timer(p_this->tmr);
-
-  // Close connections before going to sleep
-  for(int i = 0; i < p_this->nConnections; i++){
-      sl_bt_connection_close(p_this->connections[i]);
-  }
 
   GPIO_EM4EnablePinWakeup(EM4WU_EM4WUEN_MASK << _GPIO_EM4WUEN_EM4WUEN_SHIFT, 0);
 
@@ -338,7 +333,7 @@ reset_no_timer(fsm_t* this){
  * FSM initialization
  */
 fsm_t*
-new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle, uint8_t* connections, int* nConnections){
+new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle, uint8_t* advertisement_handle){
   // Initialized data
   user_data->sensor_data[0] = 0;
   user_data->sensor_data[1] = 0;
@@ -362,8 +357,7 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle, uint8_t* connectio
   user_data->tmr_flag = 0;
 
   // BLE data
-  user_data->connections = connections;
-  user_data->nConnections = nConnections;
+  user_data->advertisement_handle = advertisement_handle;
 
   // ads1220 init
   user_data->ads1220 = init_ads1220(user_data->spi_handle);
