@@ -59,20 +59,9 @@ gecko_sdk_4.1.3/app/common/util/app_log/app_log.o: \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_debug.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_init_eusart_instances.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_power_manager_config.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/emlib_core_debug_config.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_slist.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_sleeptimer_config.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_emu.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_sleeptimer_config.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
@@ -132,17 +121,6 @@ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_handles
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_debug.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_init_eusart_instances.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_power_manager_config.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/emlib_core_debug_config.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_slist.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_sleeptimer_config.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_emu.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:

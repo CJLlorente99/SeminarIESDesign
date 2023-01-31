@@ -74,12 +74,6 @@ ads1220.o: ../ads1220.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_debug.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_init_eusart_instances.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_power_manager_config.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_emu.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_dataReady_config.h \
@@ -159,12 +153,6 @@ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_handles
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_debug.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_init_eusart_instances.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_power_manager_config.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_emu.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_dataReady_config.h:

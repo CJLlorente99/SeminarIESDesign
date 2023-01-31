@@ -29,14 +29,11 @@ component:
 - {id: bluetooth_feature_gatt_server}
 - {id: in_place_ota_dfu}
 - {id: bluetooth_feature_sm}
-- {id: mpu}
 - {id: bluetooth_feature_legacy_advertiser}
+- {id: mpu}
 - {id: gatt_configuration}
 - {id: bluetooth_stack}
 - {id: gpiointerrupt}
-- instance: [vcom]
-  id: iostream_eusart
-- {id: rail_util_pti}
 - {id: bluetooth_feature_gatt}
 - {id: emlib_rmu}
 - {id: bluetooth_feature_legacy_scanner}

@@ -11,6 +11,7 @@
 #include "gatt_db.h"
 #include "sl_bluetooth.h"
 #include "app_log.h"
+#include "app_assert.h"
 
 // Macros.
 #define FLOAT_TO_BYTES(n)            ((uint8_t) (n), (uint8_t)((n) >> 8), (uint8_t)((n) >> 16), (uint8_t)((n) >> 24))
@@ -32,7 +33,7 @@
 
 typedef struct adv_format_s adv_format_t;
 
-sl_status_t sl_bt_torque_send_data(uint32_t number[4], uint8_t* advertisement_handle);
+sl_status_t sl_bt_torque_send_data(uint32_t number[4], uint8_t mode, uint8_t* advertisement_handle);
 
 /*
  * Advertisement data format
@@ -51,6 +52,7 @@ struct adv_format_s {
     uint8_t strain2[4];
     uint8_t strain3[4];
     uint8_t temp[4];
+    uint8_t mode;
 };
 
 #endif /* SL_BT_M20_STRAIN_SENSOR_H_ */

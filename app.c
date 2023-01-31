@@ -106,16 +106,63 @@ SL_WEAK void app_process_action(void)
  *****************************************************************************/
 void sl_bt_on_event(sl_bt_msg_t *evt)
 {
-  sl_status_t sc = SL_STATUS_OK;
+  sl_status_t sc;
+  bd_addr address;
+  uint8_t address_type;
+  uint8_t system_id[8];
   switch (SL_BT_MSG_ID(evt->header)) {
     // -------------------------------
     // This event indicates the device has started and the radio is ready.
     // Do not call any stack command before receiving this boot event!
     case sl_bt_evt_system_boot_id:
+      // Extract unique ID from BT Address.
+      sc = sl_bt_system_get_identity_address(&address, &address_type);
+      app_assert_status(sc);
+
+      // Pad and reverse unique ID to get System ID.
+      system_id[0] = address.addr[5];
+      system_id[1] = address.addr[4];
+      system_id[2] = address.addr[3];
+      system_id[3] = 0xFF;
+      system_id[4] = 0xFE;
+      system_id[5] = address.addr[2];
+      system_id[6] = address.addr[1];
+      system_id[7] = address.addr[0];
+
+      sc = sl_bt_gatt_server_write_attribute_value(gattdb_system_id,
+                                                   0,
+                                                   sizeof(system_id),
+                                                   system_id);
       app_assert_status(sc);
       // Initialize iBeacon ADV data.
       bcn_setup_adv_beaconing();
       break;
+
+    // This event indicates that a new connection was opened.
+    case sl_bt_evt_connection_opened_id:
+        break;
+
+    /*  This event indicates that a connection was closed.
+        We suppose that mode is continuous, if not, data inside the advertisement packet
+        will be changed */
+    case sl_bt_evt_connection_closed_id:
+      // Generate data for advertising
+      sc = sl_bt_legacy_advertiser_generate_data(advertising_set_handle,
+                                                 sl_bt_advertiser_general_discoverable);
+      app_assert_status(sc);
+
+      // Set advertising interval to 100ms.
+      sc = sl_bt_advertiser_set_timing(
+        advertising_set_handle,
+        32, // min. adv. interval (milliseconds * 1.6)
+        32, // max. adv. interval (milliseconds * 1.6)
+        0,   // adv. duration
+        0);  // max. num. adv. events
+      app_assert_status(sc);
+      // Start advertising and enable connections.
+      sc = sl_bt_legacy_advertiser_start(advertising_set_handle,
+                                         sl_bt_advertiser_connectable_scannable);
+      app_assert_status(sc);
 
     default:
       break;
@@ -140,6 +187,7 @@ static void bcn_setup_adv_beaconing(void)
     uint8_t strain2[4];
     uint8_t strain3[4];
     uint8_t temp[4];
+    uint8_t mode;
   })
   bcn_beacon_adv_data
     = {
@@ -154,7 +202,7 @@ static void bcn_setup_adv_beaconing(void)
     ADVLOCALNAME,
 
     // Manufacturer specific data.
-    4*sizeof(float)+3,   // Length of field.
+    4*sizeof(float)+4,   // Length of field.
     0xFF, // Type of field.
 
     // The first two data octets shall contain a company identifier code from
@@ -173,6 +221,9 @@ static void bcn_setup_adv_beaconing(void)
 
     // Info from first temperature sensor
     { FLOAT_TO_BYTES(0x44444444) },
+
+    // Mode (initilized to 0 or periodic)
+    0,
     };
 
   // Create an advertising set.
@@ -189,14 +240,14 @@ static void bcn_setup_adv_beaconing(void)
   // Set advertising parameters. 10ms advertisement interval.
   sc = sl_bt_advertiser_set_timing(
     advertising_set_handle,
-    160,     // min. adv. interval (milliseconds * 1.6)
-    160,     // max. adv. interval (milliseconds * 1.6)
+    32,     // min. adv. interval (milliseconds * 1.6)
+    32,     // max. adv. interval (milliseconds * 1.6)
     0,       // adv. duration
     0);      // max. num. adv. events
   app_assert_status(sc);
 
   // Start advertising in user mode and disable connections.
   sc = sl_bt_legacy_advertiser_start(advertising_set_handle,
-                                     sl_bt_advertiser_non_connectable);
+                                     sl_bt_advertiser_connectable_scannable);
   app_assert_status(sc);
 }

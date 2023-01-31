@@ -280,7 +280,8 @@ power_down_interface_send_data(fsm_t* this){
   convertToMicroVTemp(&result[3], p_this->sensor_data[3]);
 
   // Send data through BLE
-  sc = sl_bt_torque_send_data((uint32_t*)result, p_this->advertisement_handle);
+  uint8_t mode = p_this->change_mode_flag;
+  sc = sl_bt_torque_send_data((uint32_t*)result, mode, p_this->advertisement_handle);
   if(sc == SL_STATUS_OK){
       app_log_info("Attribute send: 0x%f\n", result[0]);
       app_log_info("Attribute send: 0x%f\n", result[1]);

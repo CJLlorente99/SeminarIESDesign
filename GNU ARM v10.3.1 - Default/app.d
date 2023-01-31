@@ -60,8 +60,8 @@ app.o: ../app.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_debug.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_init_eusart_instances.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_bluetooth.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_power_manager_config.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
@@ -73,8 +73,6 @@ app.o: ../app.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_bluetooth.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_bluetooth_config.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_bluetooth_connection_config.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_bluetooth_advertiser_config.h \
@@ -167,8 +165,8 @@ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_handles
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_debug.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_iostream_init_eusart_instances.h:
-c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_bluetooth.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_power_manager_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
@@ -180,8 +178,6 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_emu.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:
-C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_bluetooth.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_bluetooth_config.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_bluetooth_connection_config.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_bluetooth_advertiser_config.h:

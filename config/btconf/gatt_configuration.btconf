@@ -47,4 +47,44 @@
       </properties>
     </characteristic>
   </service>
+
+  <!--Sensor-->
+  <service advertise="true" name="Sensor" requirement="mandatory" sourceId="" type="primary" uuid="68708bcb-6c81-413d-b35d-ca6cd122babf">
+
+    <!--Strain1-->
+    <characteristic const="false" id="strain_1" name="Strain1" sourceId="" uuid="b884f421-e57a-4fd0-a9f7-6decd29fcfcb">
+      <value length="4" type="hex" variable_length="false">00</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+        <notify authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+
+    <!--Strain2-->
+    <characteristic const="false" id="strain_2" name="Strain2" sourceId="" uuid="8383cf83-bdec-4419-8297-df3db9d385c9">
+      <value length="4" type="hex" variable_length="false">00</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+        <notify authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+
+    <!--Strain3-->
+    <characteristic const="false" id="strain_3" name="Strain3" sourceId="" uuid="29cb87f0-3070-4bf9-9805-8e3aec5d91fb">
+      <value length="4" type="hex" variable_length="false">00</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+        <notify authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+
+    <!--Temp1-->
+    <characteristic const="false" id="temp_1" name="Temp1" sourceId="" uuid="40d2b763-b3c3-472c-b82d-896bd2cff94d">
+      <value length="4" type="hex" variable_length="false">00</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+        <notify authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+  </service>
 </gatt>
