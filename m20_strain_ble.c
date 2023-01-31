@@ -20,7 +20,6 @@ static void sleeptimer_callback(sl_sleeptimer_timer_handle_t* handle, void* data
 /*
  * Auxiliar function declaration
  */
-// TODO: Check types!!
 static void convertToMicroVStrain(float* result, int32_t data);
 static void convertToMicroVTemp(float* result, int32_t data);
 

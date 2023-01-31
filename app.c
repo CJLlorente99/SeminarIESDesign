@@ -53,7 +53,7 @@ SL_WEAK void app_init(void)
 {
   EMU_UnlatchPinRetention();
 
-  // Enter EM4
+  // Config EM4
   EMU_EM4Init_TypeDef em4Init = EMU_EM4INIT_DEFAULT;
   em4Init.retainUlfrco = false;
   em4Init.retainLfrco = false;
