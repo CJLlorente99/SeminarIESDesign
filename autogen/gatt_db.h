@@ -17,12 +17,9 @@ extern const sli_bt_gattdb_t gattdb;
 #define gattdb_device_information             14
 #define gattdb_manufacturer_name_string       16
 #define gattdb_system_id                      18
-#define gattdb_strain_1                       21
-#define gattdb_strain_2                       24
-#define gattdb_strain_3                       27
-#define gattdb_temp_1                         30
-#define gattdb_ota                            32
-#define gattdb_ota_control                    34
+#define gattdb_data                           21
+#define gattdb_ota                            23
+#define gattdb_ota_control                    25
 
 
 #endif // __GATT_DB_H

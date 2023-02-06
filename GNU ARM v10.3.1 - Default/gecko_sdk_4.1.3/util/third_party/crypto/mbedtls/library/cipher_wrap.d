@@ -100,6 +100,8 @@ gecko_sdk_4.1.3/util/third_party/crypto/mbedtls/library/cipher_wrap.o: \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_extra.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_compat.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\error.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\aes.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\aes_alt.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\platform.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 C:/Users/carlo/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/mbedtls/library/common.h:
@@ -201,4 +203,6 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\i
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_extra.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_compat.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\error.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\aes.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\aes_alt.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\platform.h:

@@ -83,6 +83,20 @@ m20_strain_ble.o: ../m20_strain_ble.c \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\app\common\util\app_assert\app_assert.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_assert_config.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\cipher.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\private_access.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\build_info.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/mbedtls_config.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/mbedtls_config_autogen.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\config\config-device-acceleration.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\silicon_labs\silabs_core\memory_manager\sl_malloc.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_mbedtls_config_transform_autogen.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\config_psa.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/psa_crypto_config.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/psa_crypto_config_autogen.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\check_config.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\platform_util.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\md.h \
  ../ads1220.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h \
@@ -103,7 +117,12 @@ m20_strain_ble.o: ../m20_strain_ble.c \
  ../app.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_rmu.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_burtc.h
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_burtc.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_types.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\chip\efr32\efr32xg2x\rail_chip_specific.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_features.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_assert_error_codes.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 ../m20_strain_ble.h:
 ../sl_bt_m20_strain_sensor.h:
@@ -189,6 +208,20 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\app\common\util\app_assert\app_assert.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_assert_config.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\cipher.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\private_access.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\build_info.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/mbedtls_config.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/mbedtls_config_autogen.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\config\config-device-acceleration.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\silicon_labs\silabs_core\memory_manager\sl_malloc.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_mbedtls_config_transform_autogen.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\config_psa.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/psa_crypto_config.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/psa_crypto_config_autogen.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\check_config.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\platform_util.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\md.h:
 ../ads1220.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emdrv\spidrv\inc\spidrv.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h:
@@ -210,3 +243,8 @@ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/sl_emlib_gpio_init_e
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_rmu.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_burtc.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_types.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\chip\efr32\efr32xg2x\rail_chip_specific.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_features.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_assert_error_codes.h:

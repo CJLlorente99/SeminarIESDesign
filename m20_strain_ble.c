@@ -41,7 +41,6 @@ static uint8_t sensorsReadCheck = 1;
 static uint8_t* data_ready_flag = 0;
 static uint8_t* change_mode_flag = 0;
 
-
 /*
  * Guard function declaration
  */
@@ -280,7 +279,7 @@ power_down_interface_send_data(fsm_t* this){
 
   // Send data through BLE
   uint8_t mode = p_this->change_mode_flag;
-  sc = sl_bt_torque_send_data((uint32_t*)result, mode, p_this->advertisement_handle);
+  sc = sl_bt_torque_send_data((uint32_t*)result, mode, p_this->advertisement_handle, &(p_this->cipher));
   if(sc == SL_STATUS_OK){
       app_log_info("Attribute send: 0x%f\n", result[0]);
       app_log_info("Attribute send: 0x%f\n", result[1]);
@@ -298,7 +297,7 @@ try_to_sleep(fsm_t* this){
   bool aux;
   sl_sleeptimer_is_timer_running(p_this->tmr, &aux);
   if (!aux){
-    uint32_t timeout = sl_sleeptimer_ms_to_tick(1500);
+    uint32_t timeout = sl_sleeptimer_ms_to_tick(200);
     sl_sleeptimer_start_timer(p_this->tmr, timeout, sleeptimer_callback, p_this, 1, SL_SLEEPTIMER_NO_HIGH_PRECISION_HF_CLOCKS_REQUIRED_FLAG);
   }
 
@@ -313,7 +312,12 @@ reset_timer_sleep(fsm_t* this){
 
   sl_sleeptimer_stop_timer(p_this->tmr);
 
+  // Enable wakeup through GPIO
   GPIO_EM4EnablePinWakeup(EM4WU_EM4WUEN_MASK << _GPIO_EM4WUEN_EM4WUEN_SHIFT, 0);
+
+  // RFSense initialization
+  RAIL_Time_t rTime;
+  rTime = RAIL_StartRfSense(p_this->rf_handle, RAIL_RFSENSE_OFF, SLEEPTIME, NULL);
 
   EMU_EnterEM4();
 }
@@ -345,6 +349,9 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle, uint8_t* advertise
   sl_sleeptimer_timer_handle_t* tmr = malloc(sizeof(sl_sleeptimer_timer_handle_t));
   user_data->tmr = tmr;
 
+  // Initialize RFSense handler
+  user_data->rf_handle = malloc(sizeof(RAIL_Handle_t));
+
   // Initialize flags
   user_data->wakeup_timer_flag = 1; // to activate the FSM
   user_data->wakeup_completed_flag = 0;
@@ -368,6 +375,12 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle, uint8_t* advertise
   GPIOINT_CallbackRegister(2, ready_to_retrieve_callback);
   data_ready_flag = &(user_data->data_ready_flag);
 
+  // Initialize cipher
+  mbedtls_cipher_info_t* cipher_info;
+  mbedtls_cipher_init(&(user_data->cipher));
+  cipher_info = mbedtls_cipher_info_from_values(MBEDTLS_CIPHER_ID_AES, 128, MBEDTLS_MODE_ECB);
+  mbedtls_cipher_setup(&(user_data->cipher), cipher_info);
+
   return fsm_new(SLEEPING, app_fsm_tt, user_data);
 }
 
@@ -386,7 +399,6 @@ static void
 ready_to_retrieve_callback(uint8_t intNo){
   if (intNo == 2){
       *data_ready_flag = 1;
-//      app_log_info("Data ready\n");
   }
 }
 

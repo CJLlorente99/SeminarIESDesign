@@ -82,7 +82,21 @@ sl_bt_m20_strain_sensor.o: ../sl_bt_m20_strain_sensor.c \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_swo_itm_8.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h \
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\app\common\util\app_assert\app_assert.h \
- C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_assert_config.h
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_assert_config.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\cipher.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\private_access.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\build_info.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/mbedtls_config.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/mbedtls_config_autogen.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\config\config-device-acceleration.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\silicon_labs\silabs_core\memory_manager\sl_malloc.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_mbedtls_config_transform_autogen.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\config_psa.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/psa_crypto_config.h \
+ C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/psa_crypto_config_autogen.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\check_config.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\platform_util.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\md.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 ../sl_bt_m20_strain_sensor.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/gatt_db.h:
@@ -167,3 +181,17 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_log_config.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\app\common\util\app_assert\app_assert.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/app_assert_config.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\cipher.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\private_access.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\build_info.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/mbedtls_config.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/mbedtls_config_autogen.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\config\config-device-acceleration.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\silicon_labs\silabs_core\memory_manager\sl_malloc.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/sl_mbedtls_config_transform_autogen.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\config_psa.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/psa_crypto_config.h:
+C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/psa_crypto_config_autogen.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\check_config.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\platform_util.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\md.h:

@@ -29,12 +29,13 @@ component:
 - {id: bluetooth_feature_gatt_server}
 - {id: in_place_ota_dfu}
 - {id: bluetooth_feature_sm}
-- {id: bluetooth_feature_legacy_advertiser}
 - {id: mpu}
+- {id: bluetooth_feature_legacy_advertiser}
 - {id: gatt_configuration}
 - {id: bluetooth_stack}
 - {id: gpiointerrupt}
 - {id: bluetooth_feature_gatt}
+- {id: mbedtls_aes}
 - {id: emlib_rmu}
 - {id: bluetooth_feature_legacy_scanner}
 - {id: app_log}

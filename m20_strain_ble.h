@@ -26,8 +26,12 @@
 #include "em_gpio.h"
 #include "em_burtc.h"
 #include "sl_sleeptimer.h"
+#include "rail.h"
 
 typedef struct app_fsm_s app_fsm_t;
+
+// Sleep time in periodic time (ms)
+#define SLEEPTIME 10000
 
 // Constants
 #define PGA 128                 // Programmable Gain = 128
@@ -70,6 +74,10 @@ struct app_fsm_s {
   uint8_t change_mode_flag;
   // BL advertisement handle
   uint8_t* advertisement_handle;
+  // Cipher
+  mbedtls_cipher_context_t cipher;
+  // RF_Sense handle
+  RAIL_Handle_t rf_handle;
 };
 
 #endif /* M20_STRAIN_BLE_FSM_H_ */

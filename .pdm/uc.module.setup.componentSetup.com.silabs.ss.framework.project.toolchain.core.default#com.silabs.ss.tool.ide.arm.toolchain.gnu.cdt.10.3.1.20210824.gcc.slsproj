@@ -617,6 +617,8 @@
           </folder>
           <folder name="mbedtls">
             <folder name="library">
+              <file name="aes.c" uri="studio:/sdk/util/third_party/crypto/mbedtls/library/aes.c"/>
+              <file name="padlock.h" uri="studio:/sdk/util/third_party/crypto/mbedtls/library/padlock.h"/>
               <file name="constant_time.c" uri="studio:/sdk/util/third_party/crypto/mbedtls/library/constant_time.c"/>
               <file name="threading.c" uri="studio:/sdk/util/third_party/crypto/mbedtls/library/threading.c"/>
               <file name="platform.c" uri="studio:/sdk/util/third_party/crypto/mbedtls/library/platform.c"/>
@@ -636,7 +638,6 @@
               <file name="mps_error.h" uri="studio:/sdk/util/third_party/crypto/mbedtls/library/mps_error.h"/>
               <file name="mps_reader.h" uri="studio:/sdk/util/third_party/crypto/mbedtls/library/mps_reader.h"/>
               <file name="mps_trace.h" uri="studio:/sdk/util/third_party/crypto/mbedtls/library/mps_trace.h"/>
-              <file name="padlock.h" uri="studio:/sdk/util/third_party/crypto/mbedtls/library/padlock.h"/>
               <file name="pk_wrap.h" uri="studio:/sdk/util/third_party/crypto/mbedtls/library/pk_wrap.h"/>
               <file name="rsa_alt_helpers.h" uri="studio:/sdk/util/third_party/crypto/mbedtls/library/rsa_alt_helpers.h"/>
               <file name="ssl_debug_helpers_generated.h" uri="studio:/sdk/util/third_party/crypto/mbedtls/library/ssl_debug_helpers_generated.h"/>
@@ -803,10 +804,10 @@
   <includePath uri="studio:/sdk/platform/service/hfxo_manager/inc"/>
   <includePath uri="studio:/sdk/app/bluetooth/common/in_place_ota_dfu"/>
   <includePath uri="studio:/sdk/platform/service/iostream/inc"/>
-  <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/sl_mbedtls_support/config"/>
-  <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/sl_mbedtls_support/inc"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/mbedtls/include"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/mbedtls/library"/>
+  <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/sl_mbedtls_support/config"/>
+  <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/sl_mbedtls_support/inc"/>
   <includePath uri="studio:/sdk/platform/service/mpu/inc"/>
   <includePath uri="studio:/sdk/hardware/driver/mx25_flash_shutdown/inc/sl_mx25_flash_shutdown_usart"/>
   <includePath uri="studio:/sdk/platform/emdrv/nvm3/inc"/>

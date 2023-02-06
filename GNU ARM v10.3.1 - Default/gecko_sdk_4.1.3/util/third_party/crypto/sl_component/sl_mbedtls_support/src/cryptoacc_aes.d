@@ -56,7 +56,53 @@ gecko_sdk_4.1.3/util/third_party/crypto/sl_component/sl_mbedtls_support/src/cryp
  c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\config_psa.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/psa_crypto_config.h \
  C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/psa_crypto_config_autogen.h \
- c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\check_config.h
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\check_config.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_psa_driver\inc\cryptoacc_management.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_platform.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\private_access.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\build_info.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_types.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_values.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_sizes.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_struct.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\cmac.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\cipher.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\platform_util.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\cmac_alt.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_psa_driver\inc\sli_cryptoacc_transparent_types.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\sx_hash.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\compiler_extentions.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\cryptolib_types.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\sx_aes.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\sx_blk_cipher_common.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_enum.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_driver_common.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_sizes.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\gcm.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\gcm_alt.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\ccm.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\chachapoly.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\poly1305.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\chacha20.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_driver_contexts_primitives.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_builtin_primitives.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\md5.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\ripemd160.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\sha1.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\sha1_alt.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\sha256.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\sha256_alt.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\sha512.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_driver_contexts_composites.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_builtin_composites.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_extra.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_compat.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\sx_errors.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\aes.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\aes_alt.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\platform.h \
+ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\error.h
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220sc22hna.h:
@@ -114,3 +160,49 @@ c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\i
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\config/psa_crypto_config.h:
 C:\Users\carlo\SimplicityStudio\v5_workspace\m20_ies\autogen/psa_crypto_config_autogen.h:
 c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\check_config.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_psa_driver\inc\cryptoacc_management.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_platform.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\private_access.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\build_info.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_types.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_values.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_sizes.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_struct.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\cmac.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\cipher.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\platform_util.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\cmac_alt.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_psa_driver\inc\sli_cryptoacc_transparent_types.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\sx_hash.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\compiler_extentions.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\cryptolib_types.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\sx_aes.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\sx_blk_cipher_common.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_enum.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_driver_common.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_sizes.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\gcm.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\gcm_alt.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\ccm.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\chachapoly.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\poly1305.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\chacha20.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_driver_contexts_primitives.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_builtin_primitives.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\md5.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\ripemd160.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\sha1.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\sha1_alt.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\sha256.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\sha256_alt.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\sha512.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_driver_contexts_composites.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_builtin_composites.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_extra.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_compat.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\sx_errors.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\aes.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\aes_alt.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\platform.h:
+c:\users\carlo\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\error.h:

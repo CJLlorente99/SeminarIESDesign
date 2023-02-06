@@ -5,6 +5,7 @@
 
 
 
+#define MBEDTLS_AES_C
 #define MBEDTLS_PSA_CRYPTO_C
 #define MBEDTLS_USE_PSA_CRYPTO
 #define MBEDTLS_CIPHER_C

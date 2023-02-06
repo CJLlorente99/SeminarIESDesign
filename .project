@@ -1227,6 +1227,11 @@
 			<locationURI>STUDIO_SDK_LOC/protocol/bluetooth/lib/EFR32BG22/GCC/libbluetooth.a</locationURI>
 		</link>
 		<link>
+			<name>gecko_sdk_4.1.3/util/third_party/crypto/mbedtls/library/aes.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/util/third_party/crypto/mbedtls/library/aes.c</locationURI>
+		</link>
+		<link>
 			<name>gecko_sdk_4.1.3/util/third_party/crypto/mbedtls/library/bn_mul.h</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/util/third_party/crypto/mbedtls/library/bn_mul.h</locationURI>

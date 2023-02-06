@@ -65,7 +65,6 @@ SL_WEAK void app_init(void)
   // Init BURTC
   CMU_ClockSelectSet(cmuClock_EM4GRPACLK, cmuSelect_ULFRCO);
   CMU_ClockEnable(cmuClock_BURTC, true);
-  CMU_ClockEnable(cmuClock_BURAM, true);
 
   BURTC_Init_TypeDef burtcInit = BURTC_INIT_DEFAULT;
   burtcInit.compare0Top = true; // reset counter when counter reaches compare value
@@ -73,7 +72,7 @@ SL_WEAK void app_init(void)
   BURTC_Init(&burtcInit);
 
   BURTC_CounterReset();
-  BURTC_CompareSet(0, 10000);
+  BURTC_CompareSet(0, SLEEPTIME);
 
   BURTC_IntEnable(BURTC_IEN_COMP);    // compare match
   NVIC_EnableIRQ(BURTC_IRQn);
@@ -187,7 +186,6 @@ static void bcn_setup_adv_beaconing(void)
     uint8_t strain2[4];
     uint8_t strain3[4];
     uint8_t temp[4];
-    uint8_t mode;
   })
   bcn_beacon_adv_data
     = {
@@ -222,8 +220,6 @@ static void bcn_setup_adv_beaconing(void)
     // Info from first temperature sensor
     { FLOAT_TO_BYTES(0x44444444) },
 
-    // Mode (initilized to 0 or periodic)
-    0,
     };
 
   // Create an advertising set.

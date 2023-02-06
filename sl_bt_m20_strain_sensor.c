@@ -7,8 +7,12 @@
 
 #include "sl_bt_m20_strain_sensor.h"
 
-sl_status_t sl_bt_torque_send_data(uint32_t number[4], uint8_t mode, uint8_t* advertisement_handle){
+sl_status_t sl_bt_torque_send_data(uint32_t* number, uint8_t mode, uint8_t* advertisement_handle, mbedtls_cipher_context_t* cipher){
   sl_status_t sc;
+
+  // Possibly encrypt data
+//  uint32_t encryptedNum[4];
+//  sensorDataAESEncrypt(number, 4*sizeof(uint32_t), encryptedNum, cipher);
 
   // If we are in periodic mode, we want to use advertisement packet as means of transmitting data
   if (mode == 0){
@@ -27,7 +31,7 @@ sl_status_t sl_bt_torque_send_data(uint32_t number[4], uint8_t mode, uint8_t* ad
     adv.name[3] = ADVLOCALNAME3;
     adv.name[4] = ADVLOCALNAME4;
 
-    adv.mandata_len = (uint8_t)4*sizeof(float)+4;
+    adv.mandata_len = (uint8_t)4*sizeof(float)+3;
     adv.mandata_type = 0xFF;
 
 
@@ -54,13 +58,10 @@ sl_status_t sl_bt_torque_send_data(uint32_t number[4], uint8_t mode, uint8_t* ad
     adv.temp[2] = FLOAT_TO_BYTE2(number[3]);
     adv.temp[3] = FLOAT_TO_BYTE3(number[3]);
 
-    adv.mode = mode;
-
     sc = sl_bt_legacy_advertiser_set_data(*advertisement_handle, sl_bt_advertiser_advertising_data_packet,
                                      sizeof(adv_format_t), (uint8_t*)&adv);
 
 
-//                                       sl_bt_advertiser_connectable_scannable);
   } else{ // If not periodic, normal advertisement
 
       // Generate data for advertising
@@ -69,41 +70,35 @@ sl_status_t sl_bt_torque_send_data(uint32_t number[4], uint8_t mode, uint8_t* ad
       app_assert_status(sc);
 
       // Fill GATT values
-      sc = sl_bt_gatt_server_write_attribute_value(gattdb_strain_1, 0, sizeof(float), &number[0]);
+      sc = sl_bt_gatt_server_write_attribute_value(gattdb_data, 0, sizeof(float)*4, (uint8_t*) number);
       if (sc == SL_STATUS_OK) {
           app_log_info("Attribute written: 0x%hu\n", number[0]);
         }
-      sc = sl_bt_gatt_server_notify_all(gattdb_strain_1, sizeof(float), &number[0]);
+      sc = sl_bt_gatt_server_notify_all(gattdb_data, sizeof(float)*4, (uint8_t*) number);
       if (sc == SL_STATUS_OK) {
           app_log_append(" Notification sent: 0x%hu\n", number[0]);
         }
-
-      sc = sl_bt_gatt_server_write_attribute_value(gattdb_strain_2, 0, sizeof(float), &number[1]);
-      if (sc == SL_STATUS_OK) {
-          app_log_info("Attribute written: 0x%hu\n", number[1]);
-        }
-      sc = sl_bt_gatt_server_notify_all(gattdb_strain_2, sizeof(float), &number[1]);
-      if (sc == SL_STATUS_OK) {
-          app_log_append(" Notification sent: 0x%hu\n", number[1]);
-        }
-
-      sc = sl_bt_gatt_server_write_attribute_value(gattdb_strain_3, 0, sizeof(float), &number[2]);
-      if (sc == SL_STATUS_OK) {
-          app_log_info("Attribute written: 0x%hu\n", number[2]);
-        }
-      sc = sl_bt_gatt_server_notify_all(gattdb_strain_3, sizeof(float), &number[2]);
-      if (sc == SL_STATUS_OK) {
-          app_log_append(" Notification sent: 0x%hu\n", number[2]);
-        }
-
-      sc = sl_bt_gatt_server_write_attribute_value(gattdb_temp_1, 0, sizeof(float), &number[3]);
-      if (sc == SL_STATUS_OK) {
-          app_log_info("Attribute written: 0x%hu\n", number[3]);
-        }
-      sc = sl_bt_gatt_server_notify_all(gattdb_temp_1, sizeof(float), &number[3]);
-      if (sc == SL_STATUS_OK) {
-          app_log_append(" Notification sent: 0x%hu\n", number[3]);
-        }
   }
   return sc;
+}
+
+void
+sensorDataAESEncrypt(uint32_t* data, size_t size, uint32_t* output, mbedtls_cipher_context_t* cipher){
+  size_t olen = size;
+  uint8_t key[16] = { UINT128_TO_BYTES(KEYVALUE) };
+
+
+  // Not working at the moment
+  mbedtls_cipher_setkey(cipher, (uint8_t*) key, 128, MBEDTLS_ENCRYPT);
+  mbedtls_cipher_set_iv(cipher, NULL, 0);
+  mbedtls_cipher_reset(cipher);
+  mbedtls_cipher_update(cipher, (uint8_t*) data, size, (uint8_t*) output, &olen);
+  mbedtls_cipher_finish(cipher, (uint8_t*) output, &olen);
+
+//  uint32_t example[4];
+//  mbedtls_cipher_setkey(cipher, (uint8_t*) key, 128, MBEDTLS_DECRYPT);
+//  mbedtls_cipher_set_iv(cipher, NULL, 0);
+//  mbedtls_cipher_reset(cipher);
+//  mbedtls_cipher_update(cipher, (uint8_t*) aux, size, (uint8_t*) example, &olen);
+//  mbedtls_cipher_finish(cipher, (uint8_t*) example, &olen);
 }
