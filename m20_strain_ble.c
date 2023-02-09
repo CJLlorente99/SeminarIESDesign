@@ -11,6 +11,16 @@
 #define EM4WU_EM4WUEN_MASK  (1 << EM4WU_EM4WUEN_NUM)
 
 /*
+ * RF Sense configuration
+ */
+RAIL_RfSenseSelectiveOokConfig_t rfsense_config = {
+  .band = RAIL_RFSENSE_2_4GHZ, //RAIL_RFSENSE_ANY, //RAIL_RFSENSE_OFF RAIL_RFSENSE_2_4GHZ RAIL_RFSENSE_2_4GHZ_LOW_SENSITIVITY RAIL_RFENSE_ANY_LOW_SENSITIVITY
+  .syncWordNumBytes = 2, //NUMSYNCWORDBYTES,
+  .syncWord = 0xB16F, //SYNCWORD,
+  .cb = NULL //NULL //&RAILCb_RfSense
+};
+
+/*
  * Callback declaration
  */
 static void change_mode_callback(uint8_t intNo);
@@ -316,8 +326,8 @@ reset_timer_sleep(fsm_t* this){
   GPIO_EM4EnablePinWakeup(EM4WU_EM4WUEN_MASK << _GPIO_EM4WUEN_EM4WUEN_SHIFT, 0);
 
   // RFSense initialization
-  RAIL_Time_t rTime;
-  rTime = RAIL_StartRfSense(p_this->rf_handle, RAIL_RFSENSE_OFF, SLEEPTIME, NULL);
+  RAIL_Status_t rail_status;
+  rail_status = RAIL_StartSelectiveOokRfSense(p_this->rf_handle, &rfsense_config);
 
   EMU_EnterEM4();
 }

@@ -137,6 +137,11 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
       bcn_setup_adv_beaconing();
       break;
 
+    // In case RF sense is detected when it shouldn't
+    // Maybe can be used to call callback and change retrieval mode
+    case sl_bt_evt_system_external_signal_id:
+      break;
+
     // This event indicates that a new connection was opened.
     case sl_bt_evt_connection_opened_id:
         break;
