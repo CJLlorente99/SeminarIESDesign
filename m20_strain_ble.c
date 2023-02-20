@@ -2,17 +2,22 @@
  * M20_Strain_BLE_fsm.c
  *
  *  Created on: 27 nov. 2022
- *      Author: carlo
+ *      Author: Carlos Llorente Cortijo
+ *      Technische Universität Darmstadt
+ *      ETIT-IES
  */
 
 #include "m20_strain_ble.h"
 
+/**************************************************************************//**
+ * EM4WUx pin configuration.
+ ************************************************************************/
 #define EM4WU_EM4WUEN_NUM   (3)
 #define EM4WU_EM4WUEN_MASK  (1 << EM4WU_EM4WUEN_NUM)
 
-/*
- * RF Sense configuration
- */
+/**************************************************************************//**
+ * RF Sense configuration.
+ ************************************************************************/
 RAIL_RfSenseSelectiveOokConfig_t rfsense_config = {
   .band = RAIL_RFSENSE_2_4GHZ, //RAIL_RFSENSE_ANY, //RAIL_RFSENSE_OFF RAIL_RFSENSE_2_4GHZ RAIL_RFSENSE_2_4GHZ_LOW_SENSITIVITY RAIL_RFENSE_ANY_LOW_SENSITIVITY
   .syncWordNumBytes = 2, //NUMSYNCWORDBYTES,
@@ -20,22 +25,22 @@ RAIL_RfSenseSelectiveOokConfig_t rfsense_config = {
   .cb = NULL //NULL //&RAILCb_RfSense
 };
 
-/*
- * Callback declaration
- */
+/**************************************************************************//**
+ * Callback declaration.
+ ************************************************************************/
 static void change_mode_callback(uint8_t intNo);
 static void ready_to_retrieve_callback(uint8_t intNo);
 static void sleeptimer_callback(sl_sleeptimer_timer_handle_t* handle, void* data);
 
-/*
- * Auxiliar function declaration
- */
+/**************************************************************************//**
+ * Auxiliar function declaration.
+ ************************************************************************/
 static void convertToMicroVStrain(float* result, int32_t data);
 static void convertToMicroVTemp(float* result, int32_t data);
 
-/*
- * Enumeration that defines the FSM states
- */
+/**************************************************************************//**
+ * FSM states.
+ ************************************************************************/
 enum states {
   SLEEPING,
   WAKING_UP,
@@ -44,16 +49,17 @@ enum states {
   SENDING_DATA,
   TO_SLEEP
 };
-/*
- * Local variables
- */
+
+/**************************************************************************//**
+ * Local variables.
+ ************************************************************************/
 static uint8_t sensorsReadCheck = 1;
 static uint8_t* data_ready_flag = 0;
 static uint8_t* change_mode_flag = 0;
 
-/*
- * Guard function declaration
- */
+/**************************************************************************//**
+ * Guard function declaration.
+ ************************************************************************/
 static int check_wakeup_timer(fsm_t* this);
 static int check_change_mode(fsm_t* this);
 static int check_wakeup_completed(fsm_t* this);
@@ -66,9 +72,9 @@ static int check_sleep_not_possible(fsm_t* this);
 static int check_sleep_possible(fsm_t* this);
 static int check_continuous_mode(fsm_t* this);
 
-/*
- * Transition function declaration
- */
+/**************************************************************************//**
+ * Transition function declaration.
+ ************************************************************************/
 static void wake_up(fsm_t* this);
 static void ask_for_next_data(fsm_t* this);
 static void ask_again(fsm_t* this);
@@ -78,9 +84,9 @@ static void reset_timer_sleep(fsm_t* this);
 static void try_to_sleep(fsm_t* this);
 static void reset_no_timer(fsm_t* this);
 
-/*
- * Transition table
- */
+/**************************************************************************//**
+ * Transition table.
+ ************************************************************************/
 static fsm_trans_t app_fsm_tt[] = {
       { SLEEPING, check_wakeup_timer, WAKING_UP, wake_up},
       { SLEEPING, check_change_mode, WAKING_UP, wake_up},
@@ -97,7 +103,7 @@ static fsm_trans_t app_fsm_tt[] = {
 };
 
 /**************************************************************************//**
- * @brief  BURTC Handler
+ * BURTC Handler
  *****************************************************************************/
 static int wakeupTimer = 0;
 void BURTC_IRQHandler(void)
@@ -107,9 +113,9 @@ void BURTC_IRQHandler(void)
 }
 
 
-/*
- * Guard funtions
- */
+/**************************************************************************//**
+ * Guard functions.
+ ************************************************************************/
 static int
 check_wakeup_timer(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
@@ -119,6 +125,7 @@ check_wakeup_timer(fsm_t* this){
 static int
 check_change_mode(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
+
   return p_this->change_mode_flag;
 }
 
@@ -151,43 +158,48 @@ check_data_retrieved(fsm_t* this){
 static int
 check_data_sent_not_continuous(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
+
   return p_this->data_sent_flag && !p_this->change_mode_flag;
 }
 
 static int
 check_data_sent_continuous(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
+
   return p_this->data_sent_flag && p_this->change_mode_flag;
 }
 
 static int
 check_sleep_not_possible(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
+
   return !p_this->sleep_possible_flag && !p_this->change_mode_flag;
 }
 
 static int
 check_sleep_possible(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
+
   return p_this->sleep_possible_flag && !p_this->change_mode_flag && p_this->tmr_flag;
 }
 
 static int
 check_continuous_mode(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
+
   return p_this->change_mode_flag;
 }
 
-/*
- * FSM transition functions
- */
-
+/**************************************************************************//**
+ * Transition functions.
+ ************************************************************************/
 static void
 wake_up(fsm_t* this){
 
   app_fsm_t* p_this = this->user_data;
   p_this->wakeup_timer_flag = 0;
 
+  // Disable GPIO wakeup pin
   GPIO_EM4DisablePinWakeup(EM4WU_EM4WUEN_MASK << _GPIO_EM4WUEN_EM4WUEN_SHIFT);
 
   // Determine whether reset is due to pin (switch to continuous mode) or timer (slow mode)
@@ -235,7 +247,8 @@ ask_for_next_data(fsm_t* this){
   // Send info to ADS1220 (mux)
   if(nextSensor < 3){
       // Ask for strain data
-      // TODO: Should change reg0
+      // ads1220->select_mux_channels(ads1220, nextSensor);
+      // ads1220->start_conv(ads1220);
       GPIO_PinOutClear(SL_EMLIB_GPIO_INIT_BRIDGEON_PORT, SL_EMLIB_GPIO_INIT_BRIDGEON_PIN);
       ads1220->temp_sense_on(ads1220);
       ads1220->start_conv(ads1220);
@@ -252,7 +265,6 @@ ask_again(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->data_sent_flag = 0;
   p_this->wakeup_completed_flag = 1;
-  // Sensor should already be powered up
 }
 
 static void
@@ -262,7 +274,6 @@ retrieve_data(fsm_t* this){
   p_this->data_retrieved_flag = 0;
 
   // Retrieve data through SPI
-  // TODO: think how to activate flag to change state. Now it is a blocking activity run in ADS1220 private method (so guard function returns 1 always)
   ads1220_t* ads1220 = p_this->ads1220;
   p_this->sensor_data[p_this->num_data_retrieved] = ads1220->read_data_samples(ads1220);
 }
@@ -289,7 +300,7 @@ power_down_interface_send_data(fsm_t* this){
 
   // Send data through BLE
   uint8_t mode = p_this->change_mode_flag;
-  sc = sl_bt_torque_send_data((uint32_t*)result, mode, p_this->advertisement_handle, &(p_this->cipher));
+  sc = sl_bt_torque_send_data((uint32_t*)result, mode, p_this->advertisement_handle, p_this->cipher);
   if(sc == SL_STATUS_OK){
       app_log_info("Attribute send: 0x%f\n", result[0]);
       app_log_info("Attribute send: 0x%f\n", result[1]);
@@ -304,10 +315,11 @@ try_to_sleep(fsm_t* this){
   app_fsm_t* p_this = this->user_data;
   p_this->data_sent_flag = 0;
 
+  // Start timer so frontend can sucessfully retrieve the advertisement data
   bool aux;
   sl_sleeptimer_is_timer_running(p_this->tmr, &aux);
   if (!aux){
-    uint32_t timeout = sl_sleeptimer_ms_to_tick(200);
+    uint32_t timeout = sl_sleeptimer_ms_to_tick(1500);
     sl_sleeptimer_start_timer(p_this->tmr, timeout, sleeptimer_callback, p_this, 1, SL_SLEEPTIMER_NO_HIGH_PRECISION_HF_CLOCKS_REQUIRED_FLAG);
   }
 
@@ -326,8 +338,8 @@ reset_timer_sleep(fsm_t* this){
   GPIO_EM4EnablePinWakeup(EM4WU_EM4WUEN_MASK << _GPIO_EM4WUEN_EM4WUEN_SHIFT, 0);
 
   // RFSense initialization
-  RAIL_Status_t rail_status;
-  rail_status = RAIL_StartSelectiveOokRfSense(p_this->rf_handle, &rfsense_config);
+  // RAIL_Status_t rail_status;
+  // rail_status = RAIL_StartSelectiveOokRfSense(p_this->rf_handle, &rfsense_config);
 
   EMU_EnterEM4();
 }
@@ -339,8 +351,6 @@ reset_no_timer(fsm_t* this){
   p_this->tmr_flag = 0;
 
   sl_sleeptimer_stop_timer(p_this->tmr);
-
-  EMU_EnterEM4();
 }
 
 /*
@@ -370,7 +380,7 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle, uint8_t* advertise
   user_data->data_sent_flag = 0;
   user_data->sleep_possible_flag = 0;
   user_data->num_data_retrieved = 0;
-  user_data->change_mode_flag = 0;
+  user_data->change_mode_flag = 1; // 1-> continuous, 0-> periodic
   user_data->tmr_flag = 0;
 
   // BLE data
@@ -386,18 +396,18 @@ new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle, uint8_t* advertise
   data_ready_flag = &(user_data->data_ready_flag);
 
   // Initialize cipher
+  user_data->cipher = malloc(sizeof(mbedtls_cipher_context_t));
   mbedtls_cipher_info_t* cipher_info;
-  mbedtls_cipher_init(&(user_data->cipher));
+  mbedtls_cipher_init(user_data->cipher);
   cipher_info = mbedtls_cipher_info_from_values(MBEDTLS_CIPHER_ID_AES, 128, MBEDTLS_MODE_ECB);
-  mbedtls_cipher_setup(&(user_data->cipher), cipher_info);
+  mbedtls_cipher_setup(user_data->cipher, cipher_info);
 
   return fsm_new(SLEEPING, app_fsm_tt, user_data);
 }
 
-/*
- * Callbacks
- */
-
+/**************************************************************************//**
+ * Callbacks.
+ ************************************************************************/
 static void
 change_mode_callback(uint8_t intNo){
   if (intNo == 1){
@@ -418,9 +428,9 @@ sleeptimer_callback(sl_sleeptimer_timer_handle_t* handle, void* data){
   p_this->tmr_flag = 1;
 }
 
-/*
- * Auxiliar functions
- */
+/**************************************************************************//**
+ * Auxiliar function.
+ ************************************************************************/
 static void
 convertToMicroVStrain(float* result, int32_t data){
   *result = (float) ((data*VFSR*1000000)/FSR);

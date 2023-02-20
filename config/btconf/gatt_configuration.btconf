@@ -59,5 +59,13 @@
         <notify authenticated="false" bonded="false" encrypted="false"/>
       </properties>
     </characteristic>
+
+    <!--mode-->
+    <characteristic const="false" id="mode" name="mode" sourceId="" uuid="13aa7590-a3dc-420a-8adb-aa9c9c5c8dcc">
+      <value length="1" type="hex" variable_length="false">00</value>
+      <properties>
+        <write authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
   </service>
 </gatt>

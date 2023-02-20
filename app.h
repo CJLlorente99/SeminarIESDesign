@@ -31,9 +31,9 @@
 #ifndef APP_H
 #define APP_H
 
-/*
- * App constants
- */
+/**************************************************************************//**
+ * App constants.
+ ************************************************************************/
 
 #define RISINGCHANGEMODE false
 #define FALLINGCHANGEMODE true

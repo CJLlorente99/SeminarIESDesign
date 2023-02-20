@@ -2,7 +2,9 @@
  * M20_Strain_BLE_fsm.h
  *
  *  Created on: 27 nov. 2022
- *      Author: carlo
+ *      Author: Carlos Llorente Cortijo
+ *      Technische Universität Darmstadt
+ *      ETIT-IES
  */
 
 #ifndef M20_STRAIN_BLE_FSM_H_
@@ -10,7 +12,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "sl_bt_m20_strain_sensor.h"
 #include "ads1220.h"
 #include "app_log.h"
@@ -30,8 +31,12 @@
 
 typedef struct app_fsm_s app_fsm_t;
 
+/**************************************************************************//**
+ * App constants.
+ ************************************************************************/
+
 // Sleep time in periodic time (ms)
-#define SLEEPTIME 10000
+#define SLEEPTIME 30000
 
 // Constants
 #define PGA 128                 // Programmable Gain = 128
@@ -42,14 +47,14 @@ typedef struct app_fsm_s app_fsm_t;
 // Name in uint8_t
 #define ADVLOCALNAME { 0x4d, 0x32, 0x30, 0x5f, 0x31 }
 
-/*
- * FSM creation function declaration
- */
+/**************************************************************************//**
+ * Function declaration.
+ ************************************************************************/
 fsm_t* new_app_fsm(app_fsm_t* user_data, SPIDRV_Handle_t spi_handle, uint8_t* advertisement_handle);
 
-/*
- * FSM user data structure definition
- */
+/**************************************************************************//**
+ * Type declaration.
+ ************************************************************************/
 struct app_fsm_s {
   void* user_data;
   // Timer
@@ -75,7 +80,7 @@ struct app_fsm_s {
   // BL advertisement handle
   uint8_t* advertisement_handle;
   // Cipher
-  mbedtls_cipher_context_t cipher;
+  mbedtls_cipher_context_t* cipher;
   // RF_Sense handle
   RAIL_Handle_t rf_handle;
 };

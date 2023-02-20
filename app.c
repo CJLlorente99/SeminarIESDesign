@@ -51,6 +51,7 @@ static fsm_t* app_fsm;
 // SL_WEAK is no more necessary after the method does something
 SL_WEAK void app_init(void)
 {
+  // Unlatsch possible GPIO pads pending after reset
   EMU_UnlatchPinRetention();
 
   // Config EM4
@@ -239,10 +240,10 @@ static void bcn_setup_adv_beaconing(void)
   app_assert_status(sc);
 
   // Set advertising parameters. 10ms advertisement interval.
-  sc = sl_bt_advertiser_set_timing(
+  sc =  (
     advertising_set_handle,
-    32,     // min. adv. interval (milliseconds * 1.6)
-    32,     // max. adv. interval (milliseconds * 1.6)
+    32,     // min. adv. interval (milliseconds * 1.6) (min is 20 ms)
+    32,     // max. adv. interval (milliseconds * 1.6) (min is 20 ms)
     0,       // adv. duration
     0);      // max. num. adv. events
   app_assert_status(sc);
